@@ -1,6 +1,5 @@
-package iteration2.testCases;
+package iteration2.testClass;
 
-import static org.junit.Assert.*;
 import iteration2.CoinInventory;
 
 import org.jmock.Expectations;
