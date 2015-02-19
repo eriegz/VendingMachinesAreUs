@@ -57,4 +57,21 @@ public class ChangeMaker {
 		return true;
 
 	}
+	public static String toMoney(int cost){
+		String finalString = new String("$");
+		int dollars = cost / 100;
+		int cents = cost % 100;
+		if (dollars < 1) {
+			finalString += "0.";
+		} else {
+			finalString += (dollars + ".");
+		}
+		if (cents < 10) {
+			finalString += ("0" + cents);
+		} else {
+			finalString += cents;
+		}
+		return finalString;
+	}
+
 }

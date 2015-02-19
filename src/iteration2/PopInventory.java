@@ -3,11 +3,13 @@ package iteration2;
 import java.util.HashMap;
 import java.util.Map;
 
+import GUI.VendingMachineGUI;
+
 import com.vendingmachinesareus.*;
 
-public class PopInventory {
+public class PopInventory{
 	//inner class to store rack pop information
-	public class PopInfo{
+	public class PopInfo implements PopCanRackListener{
 		private int price;
 		private PopCanRack rackID;
 		private int stockAmt;
@@ -36,11 +38,52 @@ public class PopInventory {
 		public void setStockAmt(int x){
 			stockAmt = x;
 		}
+
+		@Override
+		public void disabled(AbstractHardware<AbstractHardwareListener> arg0) {
+			//
+			
+		}
+
+		@Override
+		public void enabled(AbstractHardware<AbstractHardwareListener> arg0) {
+			//
+			
+		}
+
+		@Override
+		public void popAdded(PopCanRack arg0, PopCan arg1) {
+			stockAmt++;
+			VendingMachineGUI.out.print("Notice: Pop Added");
+		}
+
+		@Override
+		public void popEmpty(PopCanRack arg0) {
+			stockAmt = 0;
+			
+		}
+
+		@Override
+		public void popFull(PopCanRack arg0) {
+			//
+			
+		}
+
+		@Override
+		public void popRemoved(PopCanRack arg0, PopCan arg1) {
+			stockAmt--;
+			VendingMachineGUI.out.print("Notice: Pop Vending");
+			
+		}
 	}//end inner class
 	
 	//map pop info to buttons
 	private Map <SelectionButton, PopInfo> buttonToPopMap;
 	
+	
+	public PopInfo getPopInfo(SelectionButton sb){
+		return buttonToPopMap.get(sb);
+	}
 	public PopInventory(StandardPopVendingMachine VM){
 		buttonToPopMap = new HashMap<SelectionButton, PopInfo>();
 		for(int i = 0; i < 6; i++){
@@ -104,6 +147,5 @@ public class PopInventory {
 	}
 	 
 
-	
-	}
+}
 

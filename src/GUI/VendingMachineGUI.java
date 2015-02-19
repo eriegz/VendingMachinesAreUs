@@ -1,10 +1,11 @@
 package GUI;
 
+import iteration2.SoftwareSimulator;
+
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.ImageIcon;
 import javax.swing.JTextArea;
-import javax.swing.SwingUtilities;
 
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
@@ -13,10 +14,13 @@ import java.awt.Insets;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
+import com.vendingmachinesareus.*;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.PrintStream;
 
 //Test change for commit
 
@@ -31,10 +35,17 @@ public class VendingMachineGUI{//implements IndicatorLightSimulatorListener {
 	private JTextArea textPane, textPane2;
 	private JCheckBox outOfOrderLight, exactChangeLight;
 	// Used to redirect stdout to GUI
-	private OutputStream out;
+	private OutputStream outStream;
+	public static PrintStream out;
+	private SoftwareSimulator softwareSimulator;
+	private Display display;
 
-	public VendingMachineGUI() {
-		out = new OutputStream() {
+	public VendingMachineGUI(final StandardPopVendingMachine myMachine) {
+		
+		softwareSimulator = new SoftwareSimulator(myMachine);
+		display = myMachine.getDisplay();
+		
+		outStream = new OutputStream() {
 			@Override
 			public void write(int b) throws IOException {
 				updateTextPane(String.valueOf((char) b), 0);
@@ -47,7 +58,6 @@ public class VendingMachineGUI{//implements IndicatorLightSimulatorListener {
 				else{
 					updateTextPane(new String(b, off, len), 1);
 				}
-
 			}
 
 			@Override
@@ -55,7 +65,7 @@ public class VendingMachineGUI{//implements IndicatorLightSimulatorListener {
 				write(b, 0, b.length);
 			}
 		};
-		
+		out = new PrintStream(outStream, true);
 		//Create new frame
 		myFrame = new JFrame();
 		// Set the size of our window, and center it in the screen
@@ -94,6 +104,18 @@ public class VendingMachineGUI{//implements IndicatorLightSimulatorListener {
 				fiveCents,
 				getNewConstraints(1, 2, 1, 1, 1.0, 1.0, centerInt, fillBothInt,
 						zeroInsets, 0, 0));
+		fiveCents.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Coin c = new Coin(5);
+				try {
+					myMachine.getCoinSlot().addCoin(c);
+				} catch (com.vendingmachinesareus.DisabledException exc) {
+					// TODO Auto-generated catch block
+					exc.printStackTrace();
+				}
+			}
+		});
+
 
 		// $0.10 button
 		JButton tenCents = new JButton("$0.10");
@@ -101,6 +123,17 @@ public class VendingMachineGUI{//implements IndicatorLightSimulatorListener {
 				tenCents,
 				getNewConstraints(2, 2, 1, 1, 1.0, 1.0, centerInt, fillBothInt,
 						zeroInsets, 0, 0));
+		tenCents.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Coin c = new Coin(10);
+				try {
+					myMachine.getCoinSlot().addCoin(c);
+				} catch (com.vendingmachinesareus.DisabledException exc) {
+					// TODO Auto-generated catch block
+					exc.printStackTrace();
+				}
+			}
+		});
 
 		// $0.25 button
 		JButton twentyFiveCents = new JButton("$0.25");
@@ -108,6 +141,17 @@ public class VendingMachineGUI{//implements IndicatorLightSimulatorListener {
 				twentyFiveCents,
 				getNewConstraints(1, 3, 1, 1, 1.0, 1.0, centerInt, fillBothInt,
 						zeroInsets, 0, 0));
+		twentyFiveCents.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Coin c = new Coin(25);
+				try {
+					myMachine.getCoinSlot().addCoin(c);
+				} catch (com.vendingmachinesareus.DisabledException exc) {
+					// TODO Auto-generated catch block
+					exc.printStackTrace();
+				}
+			}
+		});
 
 		// $1.00 button
 		JButton oneDollar = new JButton("$1.00");
@@ -115,6 +159,17 @@ public class VendingMachineGUI{//implements IndicatorLightSimulatorListener {
 				oneDollar,
 				getNewConstraints(2, 3, 1, 1, 1.0, 1.0, centerInt, fillBothInt,
 						zeroInsets, 0, 0));
+		oneDollar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Coin c = new Coin(100);
+				try {
+					myMachine.getCoinSlot().addCoin(c);
+				} catch (com.vendingmachinesareus.DisabledException exc) {
+					// TODO Auto-generated catch block
+					exc.printStackTrace();
+				}
+			}
+		});
 
 		// $2.00 button
 		JButton twoDollars = new JButton("$2.00");
@@ -122,6 +177,17 @@ public class VendingMachineGUI{//implements IndicatorLightSimulatorListener {
 				twoDollars,
 				getNewConstraints(1, 4, 1, 1, 1.0, 1.0, centerInt, fillBothInt,
 						zeroInsets, 0, 0));
+		twoDollars.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Coin c = new Coin(200);
+				try {
+					myMachine.getCoinSlot().addCoin(c);
+				} catch (com.vendingmachinesareus.DisabledException exc) {
+					// TODO Auto-generated catch block
+					exc.printStackTrace();
+				}
+			}
+		});
 
 		/*
 		fiveCents.addActionListener(new ActionListener() {
@@ -151,6 +217,11 @@ public class VendingMachineGUI{//implements IndicatorLightSimulatorListener {
 				Pop_1,
 				getNewConstraints(1, 5, 1, 1, 1.0, 1.0, centerInt, fillBothInt,
 						zeroInsets, 0, 0));
+		Pop_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				myMachine.getSelectionButton(0).press();
+			}
+		});
 		
 		// Second pop button
 		Pop_2 = new JButton(new ImageIcon("Resources/Pops/2.jpg"));
@@ -158,6 +229,11 @@ public class VendingMachineGUI{//implements IndicatorLightSimulatorListener {
 				Pop_2,
 				getNewConstraints(2, 5, 1, 1, 1.0, 1.0, centerInt, fillBothInt,
 						zeroInsets, 0, 0));
+		Pop_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				myMachine.getSelectionButton(1).press();
+			}
+		});
 
 		// Third pop button
 		Pop_3 = new JButton(new ImageIcon("Resources/Pops/3.jpg"));
@@ -165,6 +241,11 @@ public class VendingMachineGUI{//implements IndicatorLightSimulatorListener {
 				Pop_3,
 				getNewConstraints(1, 6, 1, 1, 1.0, 1.0, centerInt, fillBothInt,
 						zeroInsets, 0, 0));
+		Pop_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				myMachine.getSelectionButton(2).press();
+			}
+		});
 
 		// Fourth pop button
 		Pop_4 = new JButton(new ImageIcon("Resources/Pops/4.jpg"));
@@ -172,6 +253,11 @@ public class VendingMachineGUI{//implements IndicatorLightSimulatorListener {
 				Pop_4,
 				getNewConstraints(2, 6, 1, 1, 1.0, 1.0, centerInt, fillBothInt,
 						zeroInsets, 0, 0));
+		Pop_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				myMachine.getSelectionButton(3).press();
+			}
+		});
 
 		// Fifth pop button
 		Pop_5 = new JButton(new ImageIcon("Resources/Pops/5.png"));
@@ -179,6 +265,11 @@ public class VendingMachineGUI{//implements IndicatorLightSimulatorListener {
 				Pop_5,
 				getNewConstraints(1, 7, 1, 1, 1.0, 1.0, centerInt, fillBothInt,
 						zeroInsets, 0, 0));
+		Pop_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				myMachine.getSelectionButton(4).press();
+			}
+		});
 
 		// Sixth pop button
 		Pop_6 = new JButton(new ImageIcon("Resources/Pops/6.jpg"));
@@ -186,7 +277,14 @@ public class VendingMachineGUI{//implements IndicatorLightSimulatorListener {
 				Pop_6,
 				getNewConstraints(2, 7, 1, 1, 1.0, 1.0, centerInt, fillBothInt,
 						zeroInsets, 0, 0));
+		Pop_6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				myMachine.getSelectionButton(5).press();
+			}
+		});
 
+		//Jamie: Only six pop buttons so far in machine
+		/*
 		// Seventh pop button
 		Pop_7 = new JButton(new ImageIcon("Resources/Pops/7.jpg"));
 		myFrame.getContentPane().add(
@@ -214,7 +312,10 @@ public class VendingMachineGUI{//implements IndicatorLightSimulatorListener {
 				Pop_10,
 				getNewConstraints(2, 9, 1, 1, 1.0, 1.0, centerInt, fillBothInt,
 						zeroInsets, 0, 0));
+		*/
 		
+		
+		//Don't know how to implement this yet... Probably need some type of store string funciton which another class could call to get the pin
 		//========================= Number Pad ==================================
 		JLabel lblPINPad = new JLabel("Enter PIN:");
 		myFrame.getContentPane().add(
@@ -315,18 +416,27 @@ public class VendingMachineGUI{//implements IndicatorLightSimulatorListener {
 		
 		// ==================== Coin return, exit, etc. ========================
 		// Coin return button
-		coinReturn = new JButton("Coin Return");
+		//Jamie: Hasn't been implemented yet
+		/*coinReturn = new JButton("Coin Return");
 		myFrame.getContentPane().add(
 				coinReturn,
 				getNewConstraints(0, 10, 1, 1, 1.0, 1.0, centerInt, fillBothInt,
 						zeroInsets, 0, 0));
-
+*/
 		// Take items button
 		takeItems = new JButton("Take Items");
 		myFrame.getContentPane().add(
 				takeItems,
 				getNewConstraints(1, 10, 1, 1, 1.0, 1.0, centerInt, fillBothInt,
 						zeroInsets, 0, 0));
+		takeItems.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e1) {
+				Object[] items = myMachine.getDeliveryChute().removeItems();
+				for (Object item : items) {
+					System.out.println("Removed: " + item);
+				}
+			}
+		});
 
 		// Exit button
 		Exit = new JButton("Exit");
@@ -351,6 +461,10 @@ public class VendingMachineGUI{//implements IndicatorLightSimulatorListener {
 		outOfOrderLight.setVisible(true);
 		myFrame.getContentPane().add(outOfOrderLight, getNewConstraints(2,1,1,1,1.0,1.0, centerInt, fillBothInt, zeroInsets, 0,0));
 		
+		//Default the displays
+		out.print("$0.00");
+		out.print("|");
+		
 		myFrame.setVisible(true);
 	}
 
@@ -360,6 +474,7 @@ public class VendingMachineGUI{//implements IndicatorLightSimulatorListener {
 		}else{
 			textPane2.setText(text);
 		}
+		display.display(text);
 	}
 
 	public OutputStream getOutputStream(){
@@ -375,6 +490,7 @@ public class VendingMachineGUI{//implements IndicatorLightSimulatorListener {
 	}
 
 	public static void main(String [] args){
-		VendingMachineGUI myGUI = new VendingMachineGUI();
+		StandardPopVendingMachine machine = StandardPopVendingMachine.getInstance();
+		VendingMachineGUI myGUI = new VendingMachineGUI(machine);
 	}
 }

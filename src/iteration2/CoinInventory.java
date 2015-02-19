@@ -1,6 +1,9 @@
 package iteration2;
 
+import GUI.VendingMachineGUI;
+
 import com.vendingmachinesareus.*;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -66,6 +69,7 @@ public class CoinInventory implements CoinReceptacleListener, CoinRackListener {
 	@Override
 	public void coinAdded(CoinReceptacle arg0, Coin arg1) {
 		receptacleCoinValue+= arg1.getValue();
+		VendingMachineGUI.out.print(ChangeMaker.toMoney(receptacleCoinValue));
 		
 	}
 
@@ -78,6 +82,7 @@ public class CoinInventory implements CoinReceptacleListener, CoinRackListener {
 	@Override
 	public void coinsRemoved(CoinReceptacle arg0) {
 		receptacleCoinValue = 0;
+		VendingMachineGUI.out.print((ChangeMaker.toMoney(0)));
 		
 	}
 

@@ -1,5 +1,7 @@
 package iteration2;
 
+import GUI.VendingMachineGUI;
+
 import com.vendingmachinesareus.AbstractHardware;
 import com.vendingmachinesareus.AbstractHardwareListener;
 import com.vendingmachinesareus.CapacityExceededException;
@@ -13,6 +15,12 @@ public class PurchaseController implements SelectionButtonListener {
 	private CoinLocationManager coinLocationManager;
 	private CardManager cardManager;
 
+	public PurchaseController(PopInventory pop, CoinInventory coin, CoinLocationManager coinLocation, CardManager card){
+		popInventory = pop;
+		coinInventory = coin;
+		coinLocationManager = coinLocation;
+		cardManager = card;
+	}
 	@Override
 	public void disabled(AbstractHardware<AbstractHardwareListener> arg0) {
 		// TODO Auto-generated method stub
@@ -29,6 +37,7 @@ public class PurchaseController implements SelectionButtonListener {
 	public void pressed(SelectionButton arg0) {
 		int cost = popInventory.getCost(arg0);
 		if (!popInventory.hasPop(arg0)) {
+			VendingMachineGUI.out.print("Notice: No Pop of that type");
 			return;
 		}
 		if (coinInventory.getReceptacleAmount() >= cost) {
@@ -37,11 +46,10 @@ public class PurchaseController implements SelectionButtonListener {
 							coinLocationManager.getCoinRackMap(), coinInventory)) {
 				popInventory.dispense(arg0);
 			} else {
-				// Display cannot make change
+				VendingMachineGUI.out.print("Notice: Cannot Make Change");
 			}
-		} else {
-			if (cardManager.hasCard()) {
-				// Display pay for remainder on card?
+		} else if (cardManager.hasCard()) {
+				VendingMachineGUI.out.print("Notice Please Enter PIN");
 				// Display please enter pin
 				String PIN = null;
 				if (cardManager.verify(PIN)) {
@@ -54,11 +62,12 @@ public class PurchaseController implements SelectionButtonListener {
 						}
 						popInventory.dispense(arg0);
 					} else {
-						// Display cannot charge card
+						VendingMachineGUI.out.print("Notice: Cannot Charge Card");
 					}
 				}
 			}
+		else{
+			VendingMachineGUI.out.print("Notice: Price of Pop is " + ChangeMaker.toMoney(popInventory.getCost(arg0)));
 		}
 	}
-
 }

@@ -1,5 +1,7 @@
 package iteration2;
 
+import GUI.VendingMachineGUI;
+
 import com.vendingmachinesareus.AbstractHardware;
 import com.vendingmachinesareus.AbstractHardwareListener;
 import com.vendingmachinesareus.Card;
@@ -26,6 +28,7 @@ public class CardManager implements CardSlotListener{
 	@Override
 	public void cardEjected(CardSlot arg0) {
 		card = null;
+		VendingMachineGUI.out.print("Notice: Card Ejecting");
 	}
 
 	@Override
@@ -35,6 +38,7 @@ public class CardManager implements CardSlotListener{
 		} catch (EmptyException e) {
 			//Impossible to reach here
 		}
+		VendingMachineGUI.out.print("Notice: Card Inserted");
 	}
 	public boolean charge(int cost, String pin) {
 		if(hasCard()){
