@@ -101,6 +101,8 @@ public class TestPurchaseController {
 	@After
 	public void tearDown() {
 		mockingContext = null;
+		purchaseController = null;
+		button = null;
 	}
 
 	/**
@@ -132,7 +134,7 @@ public class TestPurchaseController {
 		mockingContext.checking(new Expectations()
 		{{
 			// 1
-			oneOf(pop).getCost(button);
+			allowing(pop).getCost(button);
 			will(returnValue(10));
 			oneOf(pop).hasPop(button);
 			will(returnValue(true));
@@ -197,7 +199,7 @@ public class TestPurchaseController {
 			// 2
 			oneOf(card).hasCard();
 			will(returnValue(true));
-			oneOf(card).verify("1234");
+			oneOf(card).verify(null);
 			oneOf(card).charge(10, "1234");
 			will(returnValue(true));
 		}});
@@ -237,6 +239,9 @@ public class TestPurchaseController {
 		final CoinInventory coin = mockingContext.mock(CoinInventory.class);
 		mockingContext.checking(new Expectations() {
 		{
+			// 3
+			oneOf(coin).getCoinValues();
+			will(returnValue(coinValues));
 			// 3
 			oneOf(coin).getReceptacleAmount();
 			will(returnValue(500));
@@ -313,6 +318,8 @@ public class TestPurchaseController {
 		final CoinInventory coin = mockingContext.mock(CoinInventory.class);
 		mockingContext.checking(new Expectations() {
 		{
+			oneOf(coin).getCoinValues();
+			will(returnValue(coinValues));
 			// 4
 			oneOf(coin).getReceptacleAmount();
 			will(returnValue(500));
@@ -389,6 +396,8 @@ public class TestPurchaseController {
 		final CoinInventory coin = mockingContext.mock(CoinInventory.class);
 		mockingContext.checking(new Expectations() {
 		{
+			oneOf(coin).getCoinValues();
+			will(returnValue(coinValues));
 			// 5
 			oneOf(coin).getReceptacleAmount();
 			will(returnValue(500));
@@ -454,7 +463,7 @@ public class TestPurchaseController {
 		mockingContext.checking(new Expectations() {
 		{
 			// 6
-			oneOf(coin).getReceptacleAmount();
+			allowing(coin).getReceptacleAmount();
 			will(returnValue(0));
 		}});
 		final CardManager card = mockingContext.mock(CardManager.class);
@@ -464,10 +473,10 @@ public class TestPurchaseController {
 			oneOf(card).hasCard();
 			will(returnValue(true));
 			// 6
-			oneOf(card).verify("1234");
+			oneOf(card).verify(null);
 			will(returnValue(true));
 			// 6
-			oneOf(card).charge(10, "1234");
+			oneOf(card).charge(10, null);
 			will(returnValue(true));
 		}});
 		purchaseController = new Iteration2PurchaseController(pop, coin, defaultCoinLocation, card);
@@ -493,7 +502,7 @@ public class TestPurchaseController {
 		mockingContext.checking(new Expectations() {
 		{
 			// 7
-			oneOf(coin).getReceptacleAmount();
+			allowing(coin).getReceptacleAmount();
 			will(returnValue(0));
 		}});
 		final CardManager card = mockingContext.mock(CardManager.class);
@@ -503,10 +512,10 @@ public class TestPurchaseController {
 			oneOf(card).hasCard();
 			will(returnValue(true));
 			// 7
-			oneOf(card).verify("1234");
+			oneOf(card).verify(null);
 			will(returnValue(true));
 			// 7
-			oneOf(card).charge(10, "1234");
+			oneOf(card).charge(10, null);
 			will(returnValue(false));
 		}});
 		purchaseController = new Iteration2PurchaseController(pop, coin, defaultCoinLocation, card);
@@ -542,7 +551,7 @@ public class TestPurchaseController {
 			oneOf(card).hasCard();
 			will(returnValue(true));
 			// 8
-			oneOf(card).verify("4321");
+			oneOf(card).verify(null);
 			will(returnValue(false));
 		}});
 		purchaseController = new Iteration2PurchaseController(pop, coin, defaultCoinLocation, card);
@@ -567,6 +576,20 @@ public class TestPurchaseController {
 		final CoinInventory coin = mockingContext.mock(CoinInventory.class);
 		mockingContext.checking(new Expectations() {
 		{
+			oneOf(coin).getNumberOfCoinsInRack(200);
+			will(returnValue(10));
+			oneOf(coin).getNumberOfCoinsInRack(100);
+			will(returnValue(10));
+			oneOf(coin).getNumberOfCoinsInRack(50);
+			will(returnValue(10));
+			oneOf(coin).getNumberOfCoinsInRack(25);
+			will(returnValue(10));
+			oneOf(coin).getNumberOfCoinsInRack(10);
+			will(returnValue(10));
+			oneOf(coin).getNumberOfCoinsInRack(5);
+			will(returnValue(10));
+			oneOf(coin).getCoinValues();
+			will(returnValue(coinValues));
 			// 9
 			oneOf(coin).getReceptacleAmount();
 			will(returnValue(500));
