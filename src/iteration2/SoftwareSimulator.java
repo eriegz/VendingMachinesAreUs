@@ -6,15 +6,36 @@ import com.vendingmachinesareus.DisabledException;
 import com.vendingmachinesareus.PopCan;
 import com.vendingmachinesareus.StandardPopVendingMachine;
 
+/**
+ * The Class SoftwareSimulator. This is the main software class which acts upon
+ * the hardware class. It instantiates the necessary objects and registers
+ * listeners as needed
+ */
 public class SoftwareSimulator {
+
+	/** The card manager. */
 	private CardManager cardManager;
+
+	/** The coin inventory. */
 	private CoinInventory coinInventory;
+
+	/** The coin location manager. */
 	private CoinLocationManager coinLocationManager;
+
+	/** The pop inventory. */
 	private PopInventory popInventory;
+
+	/** The purchase controller. */
 	private PurchaseController purchaseController;
 	// This is editable here and will be the global constant for coin costs
+	/** The Constant coinCosts. */
 	static final public int coinCosts[] = { 5, 10, 25, 100, 200 };
 
+	/**
+	 * Instantiates a new software simulator.
+	 *
+	 * @param machine an instance of the standard pop vending machine
+	 */
 	public SoftwareSimulator(StandardPopVendingMachine machine) {
 		// Initialize and register listeners
 		cardManager = new Iteration2CardManager();
@@ -35,7 +56,8 @@ public class SoftwareSimulator {
 					popInventory.getPopInfo(machine.getSelectionButton(i)));
 			popInventory.setCost(machine.getSelectionButton(i),
 					machine.getPopCost(i));
-			popInventory.getPopInfo(machine.getSelectionButton(i)).setRackID(machine.getPopCanRack(i));
+			popInventory.getPopInfo(machine.getSelectionButton(i)).setRackID(
+					machine.getPopCanRack(i));
 		}
 
 		purchaseController = new Iteration2PurchaseController(popInventory,
@@ -52,8 +74,8 @@ public class SoftwareSimulator {
 				}
 			}
 		}
-		for(int i = 0; i < machine.getNumberOfPopCanRacks(); i++){
-			for(int j = 0; j<5;j++){
+		for (int i = 0; i < machine.getNumberOfPopCanRacks(); i++) {
+			for (int j = 0; j < 5; j++) {
 				try {
 					machine.getPopCanRack(i).addPop(new PopCan());
 				} catch (CapacityExceededException | DisabledException e) {
@@ -63,10 +85,20 @@ public class SoftwareSimulator {
 		}
 	}
 
+	/**
+	 * Gets the coin location manager.
+	 *
+	 * @return the coin location manager
+	 */
 	public CoinLocationManager getCoinLocationManager() {
 		return coinLocationManager;
 	}
 
+	/**
+	 * Sets the coin location manager.
+	 *
+	 * @param coinLocationManager the new coin location manager
+	 */
 	public void setCoinLocationManager(CoinLocationManager coinLocationManager) {
 		this.coinLocationManager = coinLocationManager;
 	}

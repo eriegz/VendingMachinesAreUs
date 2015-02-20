@@ -9,7 +9,20 @@ import com.vendingmachinesareus.CoinRack;
 import com.vendingmachinesareus.DisabledException;
 import com.vendingmachinesareus.EmptyException;
 
+/**
+ * The Class ChangeMaker.
+ * Contains useful static procedural methods for making change and changing an integer number representing cents to a properly formatted string
+ */
 public class ChangeMaker {
+	
+	/**
+	 * Makes change given paramets
+	 *
+	 * @param amountOfChange the amount of change
+	 * @param coinRackMap a mapping of the cent value to CoinRack which holds the coins of that denomination
+	 * @param inventory Coin Inventory class for the machine
+	 * @return true, if change was successfully made, false otherwise
+	 */
 	static public boolean makeChange(int amountOfChange, Map<Integer, CoinRack> coinRackMap, CoinInventory inventory){
 		//Sort coin values
 		int coinValues[] = inventory.getCoinValues();
@@ -57,6 +70,13 @@ public class ChangeMaker {
 		return true;
 
 	}
+	
+	/**
+	 * Transforms an integer number representing cents to a string formatted as "$*.XX" where * is the cost in dollars and XX is the cost in cents
+	 *
+	 * @param cost The amount of cents to be represented
+	 * @return String in the form of $*.XX (example $430.42)
+	 */
 	public static String toMoney(int cost){
 		String finalString = new String("$");
 		int dollars = cost / 100;
