@@ -276,8 +276,9 @@ public class Iteration2PopInventory implements PopInventory {
 			PopCanRack rack = temp.getRackID();
 			try {
 				rack.dispensePop();
-			} catch (DisabledException | EmptyException | CapacityExceededException e) {
+			} catch (DisabledException| CapacityExceededException e) {
 				e.printStackTrace();
+			}catch(EmptyException e){
 				return false;
 			}
 			return true;

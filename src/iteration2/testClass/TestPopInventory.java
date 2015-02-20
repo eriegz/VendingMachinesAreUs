@@ -150,10 +150,12 @@ public class TestPopInventory {
 			sbArray[i] = mockingContext.mock(SelectionButton.class, nameArray[i]);
 		}
 		Iteration2PopInventory inventory = new Iteration2PopInventory(getVendingMachine(sbArray));
-		inventory.getPopInfo(sbArray[0]).setRackID(getPopCanRack(1,"name"));
+		inventory.getPopInfo(sbArray[0]).setRackID(getPopCanRack(0,"Rack1"));
 		assertFalse(inventory.dispense(sbArray[0]));
+		assertEquals(0, numberOfPopsReleased[0]);
 		inventory.setStock(sbArray[0], 10);
 		assertTrue(inventory.dispense(sbArray[0]));
+		assertEquals(1,  numberOfPopsReleased[0]);
 	}
 
 	/**
@@ -199,7 +201,9 @@ public class TestPopInventory {
 		try {
 			mockingContext.checking(new Expectations() {
 				{
-					allowing(rackMock).dispensePop();
+					oneOf(rackMock).dispensePop();
+					will(throwException(new EmptyException()));
+					oneOf(rackMock).dispensePop();
 					will(new Action() {
 
 						@Override

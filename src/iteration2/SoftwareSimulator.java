@@ -73,6 +73,8 @@ public class SoftwareSimulator {
 		for (int i = 0; i < machine.getNumberOfSelectionButtons(); i++) {
 			machine.getSelectionButton(i).register(purchaseController);
 		}
+		
+		//Initial setup of racks
 		for (int i = 0; i < machine.getNumberOfCoinRacks(); i++) {
 			for (int j = 0; j < 5; j++) {
 				try {
