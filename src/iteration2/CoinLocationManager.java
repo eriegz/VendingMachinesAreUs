@@ -5,6 +5,7 @@ import java.util.Map;
 import com.vendingmachinesareus.CoinRack;
 import com.vendingmachinesareus.CoinReceptacle;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Interface CoinLocationManager.
  * Classes that implement this will manage the mapping of CoinRacks to coin denominations

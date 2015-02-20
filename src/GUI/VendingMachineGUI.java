@@ -22,26 +22,54 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 
+/**
+ * The Class VendingMachineGUI.
+ */
 public class VendingMachineGUI{//implements IndicatorLightSimulatorListener {
 
-	private JFrame myFrame;
+	/** The my frame. */
+private JFrame myFrame;
 	//private JTextField myLCDscreen;
+	/** The buttons representing pops */
 	private JButton Pop_1, Pop_2, Pop_3, Pop_4, Pop_5, Pop_6;
+	
+	/** The Exit button. */
 	private JButton coinReturn, Exit;
+	
+	/** The take items button. */
 	private JButton takeItems;
+	
+	/** The text pane2. */
 	private JTextArea textPane, textPane2;
+	
+	/** The exact change light and out of order light. */
 	private JCheckBox outOfOrderLight, exactChangeLight;
 	// Used to redirect stdout to GUI
+	/** Used internally*/
 	private OutputStream outStream;
+	
+	/** The output stream that will display to the GUI. */
 	public static PrintStream out;
+	
+	/** The software simulator. */
 	private SoftwareSimulator softwareSimulator;
+	
+	/** The display. */
 	private Display display;
 
 	//For Testing only
+	/**
+	 * Used for testing only. Sets out to System.out.
+	 */
 	public VendingMachineGUI(){
 		out= System.out;
 	}
 	
+	/**
+	 * Instantiates a new vending machine gui.
+	 *
+	 * @param myMachine the my machine
+	 */
 	public VendingMachineGUI(final StandardPopVendingMachine myMachine) {
 		display = myMachine.getDisplay();
 		
@@ -437,6 +465,12 @@ public class VendingMachineGUI{//implements IndicatorLightSimulatorListener {
 		myFrame.setVisible(true);
 	}
 
+	/**
+	 * Update text pane.
+	 *
+	 * @param text the text
+	 * @param paneNumber the pane number
+	 */
 	private void updateTextPane(final String text, int paneNumber) {
 		if(paneNumber==0){
 			textPane.setText(text);
@@ -446,11 +480,32 @@ public class VendingMachineGUI{//implements IndicatorLightSimulatorListener {
 		display.display(text);
 	}
 
+	/**
+	 * Gets the output stream.
+	 *
+	 * @return the output stream
+	 */
 	public OutputStream getOutputStream(){
 		return out;
 	}
 	// This function lets us avoid having to make a new GridBagConstraints
 	// object every time
+	/**
+	 * Gets the new constraints.
+	 *
+	 * @param cellX the cell x
+	 * @param cellY the cell y
+	 * @param cellHeight the cell height
+	 * @param cellWidth the cell width
+	 * @param weightX the weight x
+	 * @param weightY the weight y
+	 * @param anchor the anchor
+	 * @param fill the fill
+	 * @param ins the ins
+	 * @param padX the pad x
+	 * @param padY the pad y
+	 * @return the new constraints
+	 */
 	public GridBagConstraints getNewConstraints(int cellX, int cellY,
 			int cellHeight, int cellWidth, double weightX, double weightY,
 			int anchor, int fill, Insets ins, int padX, int padY) {
@@ -458,6 +513,11 @@ public class VendingMachineGUI{//implements IndicatorLightSimulatorListener {
 				weightX, weightY, anchor, fill, ins, padX, padY);
 	}
 
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(String [] args){
 		StandardPopVendingMachine machine = StandardPopVendingMachine.getInstance();
 		VendingMachineGUI myGUI = new VendingMachineGUI(machine);

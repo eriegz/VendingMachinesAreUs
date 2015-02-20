@@ -5,6 +5,7 @@ import com.vendingmachinesareus.AbstractHardwareListener;
 import com.vendingmachinesareus.SelectionButton;
 import com.vendingmachinesareus.SelectionButtonListener;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Interface PurchaseController. Classes which implement this interface will
  * be the main controller for the vending machine during a purchase and controls

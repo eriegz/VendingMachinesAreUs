@@ -20,9 +20,15 @@ import com.vendingmachinesareus.Coin;
 import com.vendingmachinesareus.CoinRack;
 import com.vendingmachinesareus.CoinReceptacle;
 
+/**
+ * The Class TestCoinInventory.
+ */
 public class TestCoinInventory {
 
 
+	/**
+	 * Sets the up.
+	 */
 	@Before
 	public void SetUp(){
 		coinValues = new int[]{5, 10, 25, 100, 200};
@@ -32,6 +38,9 @@ public class TestCoinInventory {
 		new VendingMachineGUI();
 	}
 	
+	/**
+	 * Tear down.
+	 */
 	@After
 	public void tearDown(){
 		
@@ -39,6 +48,9 @@ public class TestCoinInventory {
 	
 	
 	
+	/**
+	 * Test coin added1.
+	 */
 	@Test
 	public void testCoinAdded1()
 	{
@@ -71,6 +83,9 @@ public class TestCoinInventory {
 		assertEquals(coinInventory.getNumberOfCoinsInRack(5), coinRackValue + 1);
 	}
 	
+	/**
+	 * Test coin removed1.
+	 */
 	@Test
 	public void testCoinRemoved1()
 	{
@@ -103,6 +118,9 @@ public class TestCoinInventory {
 		assertEquals(coinInventory.getNumberOfCoinsInRack(5), coinRackValue - 1);
 	}
 	
+	/**
+	 * Test coin added2.
+	 */
 	@Test
 	public void testCoinAdded2()
 	{
@@ -127,6 +145,9 @@ public class TestCoinInventory {
 		assertEquals(receptacleCoinValue + 5, coinInventory.getReceptacleAmount());
 	}
 	
+	/**
+	 * Test coin removed2.
+	 */
 	@Test
 	public void testCoinRemoved2()
 	{
@@ -142,14 +163,24 @@ public class TestCoinInventory {
 		assertEquals(coinInventory.getReceptacleAmount(), 0);
 	}
 	
+	/**
+	 * Test get coin values.
+	 */
 	@Test
 	public void testGetCoinValues()
 	{
 		assertEquals(coinInventory.getCoinValues(), coinValues);
 	}
 	
+	/** The coin inventory. */
 	private CoinInventory coinInventory;
+	
+	/** The coin rack value. */
 	private int coinRackValue;
+	
+	/** The receptacle coin value. */
 	private int receptacleCoinValue;
+	
+	/** The coin values. */
 	private int [] coinValues;
 }

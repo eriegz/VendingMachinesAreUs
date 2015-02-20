@@ -7,6 +7,7 @@ import com.vendingmachinesareus.CoinRack;
 import com.vendingmachinesareus.CoinReceptacle;
 import com.vendingmachinesareus.StandardPopVendingMachine;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class Iteration2CoinLocationManager.
  * Implements @CoinLocationManager

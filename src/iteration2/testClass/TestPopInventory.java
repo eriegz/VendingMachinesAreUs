@@ -26,13 +26,16 @@ import com.vendingmachinesareus.SelectionButton;
 import com.vendingmachinesareus.StandardPopVendingMachine;
 
 /**
- * @author Taylor
+ * The Class TestPopInventory.
  *
+ * @author Taylor
  */
 public class TestPopInventory {
 
 	/**
-	 * @throws java.lang.Exception
+	 * Sets up.
+	 *
+	 * @throws Exception the exception
 	 */
 	@Before
 	public void setUp() throws Exception {
@@ -41,12 +44,19 @@ public class TestPopInventory {
 	}
 
 	/**
-	 * @throws java.lang.Exception
+	 * Tears down.
+	 *
+	 * @throws Exception the exception
 	 */
 	@After
 	public void tearDown() throws Exception {
 	}
 
+	/**
+	 * Gets the pop info test.
+	 *
+	 * 
+	 */
 	@Test
 	public void getPopInfoTest() {
 		SelectionButton[] sbArray = new SelectionButton[6];
@@ -57,6 +67,11 @@ public class TestPopInventory {
 		assertEquals(inventory.getPopInfo(sbArray[0]), inventory. new PopInfo());
 	}
 	
+	/**
+	 * Gets the cost test.
+	 *
+	 *
+	 */
 	@Test
 	public void getCostTest(){
 		SelectionButton[] sbArray = new SelectionButton[6];
@@ -66,6 +81,12 @@ public class TestPopInventory {
 		Iteration2PopInventory inventory = new Iteration2PopInventory(getVendingMachine(sbArray));
 		assertEquals(inventory.getCost(sbArray[0]),200);
 	}
+	
+	/**
+	 * Gets the stock test.
+	 *
+	 * 
+	 */
 	@Test
 	public void getStockTest(){
 		SelectionButton[] sbArray = new SelectionButton[6];
@@ -75,6 +96,10 @@ public class TestPopInventory {
 		Iteration2PopInventory inventory = new Iteration2PopInventory(getVendingMachine(sbArray));
 		assertEquals(inventory.getStock(sbArray[0]),0);
 	}
+	
+	/**
+	 * Sets the cost test.
+	 */
 	@Test
 	public void setCostTest(){
 		SelectionButton[] sbArray = new SelectionButton[6];
@@ -86,6 +111,9 @@ public class TestPopInventory {
 		assertEquals(inventory.getCost(sbArray[0]),250);
 	}
 	
+	/**
+	 * Sets the stock test.
+	 */
 	@Test
 	public void setStockTest(){
 		SelectionButton[] sbArray = new SelectionButton[6];
@@ -97,6 +125,9 @@ public class TestPopInventory {
 		assertEquals(inventory.getStock(sbArray[0]),10);
 	}
 	
+	/**
+	 * Checks for pop test.
+	 */
 	@Test
 	public void hasPopTest(){
 		SelectionButton[] sbArray = new SelectionButton[6];
@@ -109,6 +140,9 @@ public class TestPopInventory {
 		assertTrue(inventory.hasPop(sbArray[0]));
 	}
 	
+	/**
+	 * Dispense test.
+	 */
 	@Test
 	public void dispenseTest(){
 		SelectionButton[] sbArray = new SelectionButton[6];
@@ -122,6 +156,12 @@ public class TestPopInventory {
 		assertTrue(inventory.dispense(sbArray[0]));
 	}
 
+	/**
+	 * Gets the vending machine.
+	 *
+	 * @param sbArray the sb array
+	 * @return the vending machine
+	 */
 	private StandardPopVendingMachine getVendingMachine(
 			final SelectionButton[] sbArray) {
 		final StandardPopVendingMachine VMmock = mockingContext
@@ -146,6 +186,13 @@ public class TestPopInventory {
 		return VMmock;
 	}
 
+	/**
+	 * Gets the pop can rack.
+	 *
+	 * @param arrayIndex the array index
+	 * @param name the name
+	 * @return the pop can rack
+	 */
 	private PopCanRack getPopCanRack(final int arrayIndex, String name) {
 		final PopCanRack rackMock = mockingContext.mock(PopCanRack.class, name);
 
@@ -184,13 +231,17 @@ public class TestPopInventory {
 		return rackMock;
 	}
 
+	/** The mocking context. */
 	private Mockery mockingContext = new JUnit4Mockery() {
 		{
 			setImposteriser(ClassImposteriser.INSTANCE);
 		}
 	};
 
+	/** The number of pops released. */
 	private int[] numberOfPopsReleased;
+	
+	/** The name array. */
 	private String nameArray[] = {"1","2","3","4","5","6"};
 
 }

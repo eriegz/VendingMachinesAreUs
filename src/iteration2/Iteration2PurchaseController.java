@@ -8,6 +8,7 @@ import com.vendingmachinesareus.CapacityExceededException;
 import com.vendingmachinesareus.DisabledException;
 import com.vendingmachinesareus.SelectionButton;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class Iteration2PurchaseController.
  * Implements @PurchaseController
