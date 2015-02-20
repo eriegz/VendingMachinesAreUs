@@ -22,14 +22,11 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 
-//Test change for commit
-
 public class VendingMachineGUI{//implements IndicatorLightSimulatorListener {
 
 	private JFrame myFrame;
 	//private JTextField myLCDscreen;
-	private JButton Pop_1, Pop_2, Pop_3, Pop_4, Pop_5, Pop_6, Pop_7, Pop_8,
-					Pop_9, Pop_10;
+	private JButton Pop_1, Pop_2, Pop_3, Pop_4, Pop_5, Pop_6;
 	private JButton coinReturn, Exit;
 	private JButton takeItems;
 	private JTextArea textPane, textPane2;
@@ -286,38 +283,6 @@ public class VendingMachineGUI{//implements IndicatorLightSimulatorListener {
 				myMachine.getSelectionButton(5).press();
 			}
 		});
-
-		//Jamie: Only six pop buttons so far in machine
-		/*
-		// Seventh pop button
-		Pop_7 = new JButton(new ImageIcon("Resources/Pops/7.jpg"));
-		myFrame.getContentPane().add(
-				Pop_7,
-				getNewConstraints(1, 8, 1, 1, 1.0, 1.0, centerInt, fillBothInt,
-						zeroInsets, 0, 0));
-
-		// Eigth pop button
-		Pop_8 = new JButton(new ImageIcon("Resources/Pops/8.jpg"));
-		myFrame.getContentPane().add(
-				Pop_8,
-				getNewConstraints(2, 8, 1, 1, 1.0, 1.0, centerInt, fillBothInt,
-						zeroInsets, 0, 0));
-
-		// Ninth pop button
-		Pop_9 = new JButton(new ImageIcon("Resources/Pops/9.png"));
-		myFrame.getContentPane().add(
-				Pop_9,
-				getNewConstraints(1, 9, 1, 1, 1.0, 1.0, centerInt, fillBothInt,
-						zeroInsets, 0, 0));
-
-		// Tenth pop button
-		Pop_10 = new JButton(new ImageIcon("Resources/Pops/10.jpg"));
-		myFrame.getContentPane().add(
-				Pop_10,
-				getNewConstraints(2, 9, 1, 1, 1.0, 1.0, centerInt, fillBothInt,
-						zeroInsets, 0, 0));
-		*/
-		
 		
 		//Don't know how to implement this yet... Probably need some type of store string funciton which another class could call to get the pin
 		//========================= Number Pad ==================================
