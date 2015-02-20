@@ -2,6 +2,8 @@ package iteration2.testClass;
 
 import static org.junit.Assert.*;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.Map;
 
 import iteration2.CardManager;
@@ -24,7 +26,6 @@ import org.junit.Test;
 import GUI.VendingMachineGUI;
 
 import com.vendingmachinesareus.CapacityExceededException;
-import com.vendingmachinesareus.Coin;
 import com.vendingmachinesareus.CoinRack;
 import com.vendingmachinesareus.DisabledException;
 import com.vendingmachinesareus.EmptyException;
@@ -34,80 +35,59 @@ public class TestPurchaseController {
 
 	@Before
 	public void SetUp() {
-		new VendingMachineGUI();
-		coinValues = new int[] { 5, 10, 25, 100, 200 };
-		racks = new CoinRack[5];
-		for (int i = 0; i < racks.length; i++) {
-			racks[i] = makeCoinRack(i);
-		}
-		hasDispensedPop = false;
+		
+		
 		mockingContext = new Mockery() {
 			{
 				setImposteriser(ClassImposteriser.INSTANCE);
 			}
 		};
-		final SelectionButton button = mockingContext
-				.mock(SelectionButton.class);
-		mockingContext.checking(new Expectations() {
-			{
-			}
-		});
-		final PopInventory pop = mockingContext.mock(PopInventory.class);
-		mockingContext.checking(new Expectations() {
-			{
-				
-			}
-		});
-		final CoinInventory coin = mockingContext.mock(CoinInventory.class);
-		mockingContext.checking(new Expectations() {
-			{
-				
-			}
-		});
-
-		final Map<Integer, CoinRack> coinRackMap = (Map<Integer, CoinRack>) mockingContext
-				.mock(Map.class);
-		mockingContext.checking(new Expectations() {
-			{
-				allowing(coinRackMap).get(coinValues[0]);
-				will(returnValue(racks[0]));
-				allowing(coinRackMap).get(coinValues[1]);
-				will(returnValue(racks[1]));
-				allowing(coinRackMap).get(coinValues[2]);
-				will(returnValue(racks[2]));
-				allowing(coinRackMap).get(coinValues[3]);
-				will(returnValue(racks[3]));
-				allowing(coinRackMap).get(coinValues[4]);
-				will(returnValue(racks[4]));
-			}
-		});
-
-		final CoinLocationManager coinLocation = mockingContext
-				.mock(CoinLocationManager.class);
+		//Used for output stream
+		System.setOut(new PrintStream(outContent));
+		new VendingMachineGUI();
+		
+		coinValues = new int[] { 5, 10, 25, 100, 200 };
+		
+		racks = new CoinRack[5];
+		//Need Unique Names
+		String coinRackNames[]= {"5","10","25","100", "200"};
+		for (int i = 0; i < racks.length; i++) {
+			racks[i] = makeCoinRack(i, coinRackNames[i]);
+		}
+		
+		//Set as false to begin
+		hasDispensedPop = false;
+		
+		defaultPop = mockingContext.mock(PopInventory.class, "DefaultPopInventory");
 		mockingContext.checking(new Expectations() {
 			{
 				
 			}
 		});
-		final CardManager card = mockingContext.mock(CardManager.class);
+		defaultCoin = mockingContext.mock(CoinInventory.class, "DefaultCoinInventory");
+		mockingContext.checking(new Expectations() {
+			{
+				
+			}
+		});
+		defaultCoinLocation = mockingContext
+				.mock(CoinLocationManager.class, "DefaultCoin");
+		mockingContext.checking(new Expectations() {
+			{
+				
+			}
+		});
+		defaultCard = mockingContext.mock(CardManager.class, "DefaultCardManager");
 		mockingContext.checking(new Expectations() {
 			{
 			
 			}
 		});
-		final ChangeMaker changeMaker = mockingContext.mock(ChangeMaker.class);
-		mockingContext.checking(new Expectations() {
-			{
-				
-			}
-		});
-		
-		purchaseController = new Iteration2PurchaseController(pop, coin, coinLocation, card);
 	}
 
 	@After
 	public void tearDown() {
-
+		mockingContext = null;
 	}
 
 	@Test
@@ -127,8 +107,9 @@ public class TestPurchaseController {
 			oneOf(pop).hasPop(button);
 			will(returnValue(false));
 		}});
+		purchaseController = new Iteration2PurchaseController(pop, defaultCoin, defaultCoinLocation, defaultCard);
 		purchaseController.pressed(button);
-		assertEquals("Notice: No Pop of that type", System.out.toString());
+		assertEquals("Notice: No Pop of that type", outContent.toString());
 	}
 	
 	@Test
@@ -259,6 +240,7 @@ public class TestPurchaseController {
 			oneOf(coin).getReceptacleAmount();
 			will(returnValue(500));
 		}});
+		@SuppressWarnings("unchecked")
 		final Map<Integer, CoinRack> coinRackMap = (Map<Integer, CoinRack>) mockingContext
 				.mock(Map.class);
 		mockingContext.checking(new Expectations() {
@@ -336,6 +318,7 @@ public class TestPurchaseController {
 			oneOf(coin).getReceptacleAmount();
 			will(returnValue(500));
 		}});
+		@SuppressWarnings("unchecked")
 		final Map<Integer, CoinRack> coinRackMap = (Map<Integer, CoinRack>) mockingContext
 				.mock(Map.class);
 		mockingContext.checking(new Expectations() {
@@ -413,6 +396,7 @@ public class TestPurchaseController {
 			oneOf(coin).getReceptacleAmount();
 			will(returnValue(500));
 		}});
+		@SuppressWarnings("unchecked")
 		final Map<Integer, CoinRack> coinRackMap = (Map<Integer, CoinRack>) mockingContext
 				.mock(Map.class);
 		mockingContext.checking(new Expectations() {
@@ -598,6 +582,7 @@ public class TestPurchaseController {
 			oneOf(coin).getReceptacleAmount();
 			will(returnValue(500));
 		}});
+		@SuppressWarnings("unchecked")
 		final Map<Integer, CoinRack> coinRackMap = (Map<Integer, CoinRack>) mockingContext
 				.mock(Map.class);
 		mockingContext.checking(new Expectations() {
@@ -634,8 +619,8 @@ public class TestPurchaseController {
 		assertEquals("Notice: Cannot Make Change", System.out.toString());
 	}
 
-	private CoinRack makeCoinRack(final int arrayIndex) {
-		final CoinRack ret = mockingContext.mock(CoinRack.class);
+	private CoinRack makeCoinRack(final int arrayIndex, String coinRackName) {
+		final CoinRack ret = mockingContext.mock(CoinRack.class, coinRackName);
 		try {
 			mockingContext.checking(new Expectations() {
 				{
@@ -660,15 +645,15 @@ public class TestPurchaseController {
 		}
 		return ret;
 	}
+	private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 	private Iteration2PurchaseController purchaseController;
 	private Mockery mockingContext;
-	private PopInventory popInventory;
-	private CoinInventory coinInventory;
-	private CoinLocationManager coinLocationManager;
-	private CardManager cardManager;
+	private PopInventory defaultPop;
+	private CoinInventory defaultCoin;
+	private CoinLocationManager defaultCoinLocation;
+	private CardManager defaultCard;
 	private int[] coinValues;
 	private int[] numberOfCoinsReleased;
 	private boolean hasDispensedPop;
-	private int arrayIndex;
 	private CoinRack[] racks;
 }
