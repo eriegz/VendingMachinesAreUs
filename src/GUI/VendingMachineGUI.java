@@ -40,6 +40,11 @@ public class VendingMachineGUI{//implements IndicatorLightSimulatorListener {
 	private SoftwareSimulator softwareSimulator;
 	private Display display;
 
+	//For Testing only
+	public VendingMachineGUI(){
+		out= System.out;
+	}
+	
 	public VendingMachineGUI(final StandardPopVendingMachine myMachine) {
 		
 		softwareSimulator = new SoftwareSimulator(myMachine);

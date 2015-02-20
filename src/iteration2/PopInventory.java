@@ -1,8 +1,6 @@
 package iteration2;
 
 import iteration2.Iteration2PopInventory.PopInfo;
-import GUI.VendingMachineGUI;
-
 import com.vendingmachinesareus.*;
 
 public interface PopInventory{
