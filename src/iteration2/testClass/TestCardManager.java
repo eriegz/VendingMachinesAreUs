@@ -3,12 +3,15 @@ package iteration2.testClass;
 import static org.junit.Assert.*;
 import iteration2.CardManager;
 import iteration2.Iteration2CardManager;
+
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import GUI.VendingMachineGUI;
 
 import com.vendingmachinesareus.Card;
 import com.vendingmachinesareus.CardSlot;
@@ -19,6 +22,8 @@ public class TestCardManager {
 	@Before
 	public void SetUp(){
 		cardManager = new Iteration2CardManager();
+		//Need this line so no null pointer exceptions happen
+		new VendingMachineGUI();
 	}
 	
 	@After
@@ -36,11 +41,11 @@ public class TestCardManager {
 		final Card card = mockingContext.mock(Card.class);
 		mockingContext.checking(new Expectations() {
 			{
-				one(card).getType();
+				oneOf(card).getType();
 				will(returnValue(0));
-				one(card).getNumber();
+				oneOf(card).getNumber();
 				will(returnValue("123456789"));
-				one(card).getName();
+				oneOf(card).getName();
 				will(returnValue("John Smith"));
 			}}
 		);
@@ -48,7 +53,7 @@ public class TestCardManager {
 		try {
 			mockingContext.checking(new Expectations() {
 				{
-					one(cardSlot).readCardData();
+					oneOf(cardSlot).readCardData();
 					will(returnValue(card));
 				}}
 			);
@@ -68,11 +73,11 @@ public class TestCardManager {
 		final Card card = mockingContext.mock(Card.class);
 		mockingContext.checking(new Expectations() {
 			{
-				one(card).getType();
+				oneOf(card).getType();
 				will(returnValue(0));
-				one(card).getNumber();
+				oneOf(card).getNumber();
 				will(returnValue("123456789"));
-				one(card).getName();
+				oneOf(card).getName();
 				will(returnValue("John Smith"));
 			}}
 		);
@@ -80,7 +85,7 @@ public class TestCardManager {
 		try {
 			mockingContext.checking(new Expectations() {
 				{
-					one(cardSlot).readCardData();
+					oneOf(cardSlot).readCardData();
 					will(returnValue(card));
 				}}
 			);
@@ -102,11 +107,11 @@ public class TestCardManager {
 		final Card card = mockingContext.mock(Card.class);
 		mockingContext.checking(new Expectations() {
 			{
-				one(card).getType();
+				oneOf(card).getType();
 				will(returnValue(0));
-				one(card).getNumber();
+				oneOf(card).getNumber();
 				will(returnValue("123456789"));
-				one(card).getName();
+				oneOf(card).getName();
 				will(returnValue("John Smith"));
 			}}
 		);
@@ -114,7 +119,7 @@ public class TestCardManager {
 		try {
 			mockingContext.checking(new Expectations() {
 				{
-					one(cardSlot).readCardData();
+					oneOf(cardSlot).readCardData();
 					will(returnValue(card));
 				}}
 			);
@@ -138,19 +143,19 @@ public class TestCardManager {
 		final Card card = mockingContext.mock(Card.class);
 		mockingContext.checking(new Expectations() {
 			{
-				one(card).getType();
+				oneOf(card).getType();
 				will(returnValue(0));
-				one(card).getNumber();
+				oneOf(card).getNumber();
 				will(returnValue("123456789"));
-				one(card).getName();
+				oneOf(card).getName();
 				will(returnValue("John Smith"));
-				one(card).checkPin("1234");
+				oneOf(card).checkPin("1234");
 				will(returnValue(true));
-				one(card).checkPin("4321");
+				oneOf(card).checkPin("4321");
 				will(returnValue(false));
-				one(card).requestFunds(10, "1234");
+				oneOf(card).requestFunds(10, "1234");
 				will(returnValue(true));
-				one(card).requestFunds(10, "4321");
+				oneOf(card).requestFunds(10, "4321");
 				will(returnValue(false));
 			}}
 		);
@@ -182,9 +187,9 @@ public class TestCardManager {
 		mockingContext.checking(new Expectations() {
 			{
 				
-				one(card).checkPin("1234");
+				oneOf(card).checkPin("1234");
 				will(returnValue(true));
-				one(card).checkPin("4321");
+				oneOf(card).checkPin("4321");
 				will(returnValue(false));
 			}}
 		);
