@@ -28,6 +28,8 @@ public class SoftwareSimulator {
 
 	/** The purchase controller. */
 	private PurchaseController purchaseController;
+	/** The display controller */
+	private DisplayManager displayManager;
 	// This is editable here and will be the global constant for coin costs
 	/** The Constant coinCosts. */
 	static final public int coinCosts[] = { 5, 10, 25, 100, 200 };
@@ -39,6 +41,7 @@ public class SoftwareSimulator {
 	 */
 	public SoftwareSimulator(StandardPopVendingMachine machine) {
 		// Initialize and register listeners
+		
 		cardManager = new Iteration2CardManager();
 		machine.getCardSlot().register(cardManager);
 
@@ -61,8 +64,12 @@ public class SoftwareSimulator {
 					machine.getPopCanRack(i));
 		}
 
+		displayManager = new Iteration2DisplayManager();
+		machine.getDisplay().register(displayManager);
+		
 		purchaseController = new Iteration2PurchaseController(popInventory,
 				coinInventory, coinLocationManager, cardManager);
+		
 		for (int i = 0; i < machine.getNumberOfSelectionButtons(); i++) {
 			machine.getSelectionButton(i).register(purchaseController);
 		}
