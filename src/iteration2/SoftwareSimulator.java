@@ -13,7 +13,7 @@ public class SoftwareSimulator {
 	
 	public SoftwareSimulator(StandardPopVendingMachine machine){
 		//Initialize and register listeners
-		cardManager = new Iteration2CardManger();
+		cardManager = new Iteration2CardManager();
 		machine.getCardSlot().register(cardManager);
 		
 		coinInventory = new Iteration2CoinInventory(coinCosts);
