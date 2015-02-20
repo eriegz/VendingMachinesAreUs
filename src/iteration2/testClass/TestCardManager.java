@@ -2,9 +2,11 @@ package iteration2.testClass;
 
 import static org.junit.Assert.*;
 import iteration2.CardManager;
+import iteration2.Iteration2CardManger;
 
 import org.jmock.Expectations;
 import org.jmock.Mockery;
+import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +19,7 @@ public class TestCardManager {
 
 	@Before
 	public void SetUp(){
-		cardManager = new CardManager();
+		cardManager = new Iteration2CardManger();
 	}
 	
 	@After

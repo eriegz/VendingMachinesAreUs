@@ -13,24 +13,24 @@ public class SoftwareSimulator {
 	
 	public SoftwareSimulator(StandardPopVendingMachine machine){
 		//Initialize and register listeners
-		cardManager = new CardManager();
+		cardManager = new Iteration2CardManger();
 		machine.getCardSlot().register(cardManager);
 		
-		coinInventory = new CoinInventory(coinCosts);
+		coinInventory = new Iteration2CoinInventory(coinCosts);
 		machine.getCoinReceptacle().register(coinInventory);
 		for (int i = 0; i < machine.getNumberOfCoinRacks(); i ++){
 			machine.getCoinRack(i).register(coinInventory);
 		}
 		
-		setCoinLocationManager(new CoinLocationManager(coinCosts, machine));
+		setCoinLocationManager(new Iteration2CoinLocationManager(coinCosts, machine));
 		
-		popInventory = new PopInventory(machine);
+		popInventory = new Iteration2PopInventory(machine);
 		for(int i = 0; i<machine.getNumberOfPopCanRacks(); i++){
 			machine.getPopCanRack(i).register(popInventory.getPopInfo(machine.getSelectionButton(i)));
 			popInventory.setCost(machine.getSelectionButton(i), machine.getPopCost(i));
 		}
 		
-		purchaseController = new PurchaseController(popInventory, coinInventory, coinLocationManager, cardManager);
+		purchaseController = new Iteration2PurchaseController(popInventory, coinInventory, coinLocationManager, cardManager);
 		for(int i = 0; i < machine.getNumberOfSelectionButtons(); i++){
 			machine.getSelectionButton(i).register(purchaseController);
 		}

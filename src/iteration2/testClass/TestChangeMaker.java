@@ -1,42 +1,74 @@
 package iteration2.testClass;
 
+import static org.junit.Assert.*;
+
+import java.util.Map;
+
+import iteration2.ChangeMaker;
 import iteration2.CoinInventory;
 
+import org.hamcrest.Description;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
+import org.jmock.api.Action;
+import org.jmock.api.Invocation;
+import org.jmock.integration.junit4.JUnit4Mockery;
+import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
-import com.vendingmachinesareus.Card;
-import com.vendingmachinesareus.CardSlot;
+import com.vendingmachinesareus.CapacityExceededException;
+import com.vendingmachinesareus.CoinRack;
+import com.vendingmachinesareus.DisabledException;
 import com.vendingmachinesareus.EmptyException;
 
-public class TestChangeMaker {
 
+public class TestChangeMaker {
 	@Before
-	public void SetUp(){
-		
+	public void setUp(){
+		mockeryContext = new JUnit4Mockery(){{
+				setImposteriser(ClassImposteriser.INSTANCE);	
+			}};
 	}
-	
 	@After
 	public void tearDown(){
 		
 	}
-
-	@Test
-	public void testMakeChange()
-	{
-		final int[] coinValues = new int[]{5, 10, 25, 100, 200};
-		Mockery mockingContext = new Mockery();
-		final CoinInventory inventory = mockingContext.mock(CoinInventory.class);
-		mockingContext.checking(new Expectations() {
-			{
-				one(inventory).getCoinValues();
-				will(returnValue(coinValues));
-			}}
-		);
-		
+	public void testMakeChangeWithEnoughChange(){
+		CoinRack rack = makeCoinRack(0);
+		try {
+			rack.releaseCoin();
+		} catch (CapacityExceededException | EmptyException | DisabledException e) {
+			e.printStackTrace();
+		}
+		assertEquals(numberOfCoinsReleased[0], 1);
 	}
-	
+	private CoinRack makeCoinRack(final int arrayIndex){
+		final CoinRack ret = mockeryContext.mock(CoinRack.class);
+		try {
+			mockeryContext.checking(new Expectations(){{
+				allowing(ret).releaseCoin();
+				will(new Action(){
+
+					@Override
+					public void describeTo(Description description) {
+					}
+
+					@Override
+					public Object invoke(Invocation invocation)
+							throws Throwable {
+						numberOfCoinsReleased[arrayIndex]++;
+						return null;
+					}
+				});
+			}});
+		} catch (CapacityExceededException | EmptyException | DisabledException e) {
+			e.printStackTrace();
+		}
+		return ret;
+	}
+	private Mockery mockeryContext;
+	private int[] numberOfCoinsReleased;
 }
