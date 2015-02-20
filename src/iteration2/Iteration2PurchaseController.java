@@ -94,7 +94,7 @@ public class Iteration2PurchaseController implements PurchaseController {
 				VendingMachineGUI.out.print("Notice: Cannot Make Change");
 			}
 		} else if (cardManager.hasCard()) {
-			VendingMachineGUI.out.print("Notice Please Enter PIN");
+			VendingMachineGUI.out.print("Notice: Please Enter PIN");
 			// Display please enter pin
 			String PIN = null;
 			if (cardManager.verify(PIN)) {

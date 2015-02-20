@@ -139,6 +139,7 @@ public class TestPurchaseController {
 		purchaseController = new Iteration2PurchaseController(pop, defaultCoin, defaultCoinLocation, defaultCard);
 		purchaseController.pressed(button);
 		assertEquals("Notice: No Pop of that type", outContent.toString());
+		assertEquals(false, hasDispensedPop);
 	}
 	
 	/**
@@ -172,6 +173,7 @@ public class TestPurchaseController {
 		purchaseController = new Iteration2PurchaseController(pop, coin, defaultCoinLocation, card);
 		purchaseController.pressed(button);
 		assertEquals("Notice: Price of Pop is $0.10", outContent.toString());
+		assertEquals(false, hasDispensedPop);
 	}
 	
 	/**
@@ -588,7 +590,8 @@ public class TestPurchaseController {
 		}});
 		purchaseController = new Iteration2PurchaseController(pop, coin, defaultCoinLocation, card);
 		purchaseController.pressed(button);
-		assertEquals("Notice: Cannot Charge Card", outContent.toString());
+		assertEquals("Notice: Please Enter PINNotice: Cannot Charge Card", outContent.toString());
+		assertEquals(false, hasDispensedPop);
 	}
 	
 	/**
@@ -624,7 +627,8 @@ public class TestPurchaseController {
 		}});
 		purchaseController = new Iteration2PurchaseController(pop, coin, defaultCoinLocation, card);
 		purchaseController.pressed(button);
-		assertEquals("Notice: PIN Not Valid", outContent.toString());
+		assertEquals("Notice: Please Enter PINNotice: PIN Not Valid", outContent.toString());
+		assertEquals(false, hasDispensedPop);
 	}
 	
 	/**
@@ -645,11 +649,11 @@ public class TestPurchaseController {
 		mockingContext.checking(new Expectations() {
 		{
 			allowing(coin).getNumberOfCoinsInRack(200);
-			will(returnValue(10));
+			will(returnValue(0));
 			allowing(coin).getNumberOfCoinsInRack(100);
-			will(returnValue(10));
+			will(returnValue(0));
 			allowing(coin).getNumberOfCoinsInRack(50);
-			will(returnValue(10));
+			will(returnValue(0));
 			allowing(coin).getNumberOfCoinsInRack(25);
 			will(returnValue(10));
 			allowing(coin).getNumberOfCoinsInRack(10);
@@ -695,13 +699,14 @@ public class TestPurchaseController {
 		mockingContext.checking(new Expectations() {
 		{
 			oneOf(changeMaker);
-			// 9
+			 //9
 			ChangeMaker.makeChange(490, coinRackMap, coin);
 			will(returnValue(false));
 		}});
 		purchaseController = new Iteration2PurchaseController(pop, coin, coinLocation, defaultCard);
 		purchaseController.pressed(button);
-		assertEquals("Notice: Cannot Make Change", System.out.toString());
+		assertEquals("Notice: Cannot Make Change", outContent.toString());
+		assertEquals(false, hasDispensedPop);
 	}
 
 	/**
