@@ -70,7 +70,6 @@ public class TestCardManager {
 				}}
 			);
 		} catch (EmptyException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 			cardManager.cardInserted(cardSlot);
@@ -105,7 +104,6 @@ public class TestCardManager {
 				}}
 			);
 		} catch (EmptyException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 			cardManager.cardInserted(cardSlot);
@@ -142,7 +140,6 @@ public class TestCardManager {
 				}}
 			);
 		} catch (EmptyException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 			assertFalse(cardManager.hasCard());
@@ -189,12 +186,13 @@ public class TestCardManager {
 				}}
 			);
 		} catch (EmptyException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		cardManager.cardInserted(cardSlot);
 		assertTrue(cardManager.charge(10, "1234"));
 		cardManager.cardInserted(cardSlot);
+		assertFalse(cardManager.charge(10, "4321"));
+		cardManager.cardEjected(cardSlot);
 		assertFalse(cardManager.charge(10, "4321"));
 	}
 	
@@ -232,6 +230,8 @@ public class TestCardManager {
 		cardManager.cardInserted(cardSlot);
 		assertTrue(cardManager.verify("1234"));
 		cardManager.cardInserted(cardSlot);
+		assertFalse(cardManager.verify("4321"));
+		cardManager.cardEjected(cardSlot);
 		assertFalse(cardManager.verify("4321"));
 	}
 	
