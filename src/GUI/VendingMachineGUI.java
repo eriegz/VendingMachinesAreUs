@@ -46,8 +46,6 @@ public class VendingMachineGUI{//implements IndicatorLightSimulatorListener {
 	}
 	
 	public VendingMachineGUI(final StandardPopVendingMachine myMachine) {
-		
-		softwareSimulator = new SoftwareSimulator(myMachine);
 		display = myMachine.getDisplay();
 		
 		outStream = new OutputStream() {
@@ -71,6 +69,7 @@ public class VendingMachineGUI{//implements IndicatorLightSimulatorListener {
 			}
 		};
 		out = new PrintStream(outStream, true);
+		softwareSimulator = new SoftwareSimulator(myMachine);
 		//Create new frame
 		myFrame = new JFrame();
 		// Set the size of our window, and center it in the screen
