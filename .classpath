@@ -21,6 +21,10 @@
 	<classpathentry kind="lib" path="jmock-2.6.0/jmock-legacy-2.6.0.jar"/>
 	<classpathentry kind="lib" path="jmock-2.6.0/jmock-script-2.6.0.jar"/>
 	<classpathentry kind="lib" path="jmock-2.6.0/objenesis-1.0.jar"/>
-	<classpathentry kind="lib" path="com.vendingmachinesareus-0.9.2.jar"/>
+	<classpathentry kind="lib" path="com.vendingmachinesareus-0.9.2.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/VendingMachinesAreUs/com.vendingmachinesareus-0.9.2.jar!/doc"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
