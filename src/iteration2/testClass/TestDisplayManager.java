@@ -20,7 +20,6 @@ import iteration2.Iteration2DisplayManager;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -73,20 +72,13 @@ public class TestDisplayManager {
 		displayManager.messageChange(display, "$0.00", "$1.00");
 		assertEquals("", outContent.toString());
 		try {
-			Thread.sleep(50000);
+			Thread.sleep(5000);
 		} 
 		catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		final Timer timer = new Timer();
-		timer.schedule(new TimerTask() {
-			@Override
-			public void run() {
-				VendingMachineGUI.out.print("1.00");
-				timer.cancel();
-			}
-		}, 5000);
-		assertEquals("1.00", outContent.toString());
+		//Shouldn't have changed
+		assertEquals("", outContent.toString());
 	}
 
 	/**
@@ -100,13 +92,12 @@ public class TestDisplayManager {
 				"Notice: Price of Pop is");
 		assertEquals("", outContent.toString());
 		final Timer timer = new Timer();
-		timer.schedule(new TimerTask() {
-			@Override
-			public void run() {
-				VendingMachineGUI.out.print("|");
-				timer.cancel();
-			}
-		}, 4000);
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		assertEquals("|", outContent.toString());
 	}
 
