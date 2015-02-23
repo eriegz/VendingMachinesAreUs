@@ -8,9 +8,9 @@ import com.vendingmachinesareus.Card;
 import com.vendingmachinesareus.CardSlot;
 import com.vendingmachinesareus.EmptyException;
 
-public class Iteration2CardManger implements CardManager{
+public class Iteration2CardManager implements CardManager{
 	private Card card;
-	public Iteration2CardManger(){
+	public Iteration2CardManager(){
 		card = null;
 	}
 	@Override

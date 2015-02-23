@@ -2,16 +2,13 @@ package iteration2.testClass;
 
 import static org.junit.Assert.*;
 import iteration2.CardManager;
-import iteration2.Iteration2CardManger;
-
+import iteration2.Iteration2CardManager;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
-import GUI.VendingMachineGUI;
 
 import com.vendingmachinesareus.Card;
 import com.vendingmachinesareus.CardSlot;
@@ -21,8 +18,7 @@ public class TestCardManager {
 
 	@Before
 	public void SetUp(){
-		cardManager = new Iteration2CardManger();
-		new VendingMachineGUI();
+		cardManager = new Iteration2CardManager();
 	}
 	
 	@After
@@ -33,19 +29,18 @@ public class TestCardManager {
 	
 	
 	@Test
-	public void testCardInserted()
+	public void testcardInserted()
 	{
 		Mockery mockingContext = new Mockery(){{
-			 setImposteriser(ClassImposteriser.INSTANCE);
-		}};
+		setImposteriser(ClassImposteriser.INSTANCE);}};
 		final Card card = mockingContext.mock(Card.class);
 		mockingContext.checking(new Expectations() {
 			{
-				oneOf(card).getType();
+				one(card).getType();
 				will(returnValue(0));
-				oneOf(card).getNumber();
+				one(card).getNumber();
 				will(returnValue("123456789"));
-				oneOf(card).getName();
+				one(card).getName();
 				will(returnValue("John Smith"));
 			}}
 		);
@@ -53,7 +48,7 @@ public class TestCardManager {
 		try {
 			mockingContext.checking(new Expectations() {
 				{
-					oneOf(cardSlot).readCardData();
+					one(cardSlot).readCardData();
 					will(returnValue(card));
 				}}
 			);
@@ -69,16 +64,15 @@ public class TestCardManager {
 	public void testCardEjected()
 	{
 		Mockery mockingContext = new Mockery(){{
-			 setImposteriser(ClassImposteriser.INSTANCE);
-		}};;
+			setImposteriser(ClassImposteriser.INSTANCE);}};
 		final Card card = mockingContext.mock(Card.class);
 		mockingContext.checking(new Expectations() {
 			{
-				oneOf(card).getType();
+				one(card).getType();
 				will(returnValue(0));
-				oneOf(card).getNumber();
+				one(card).getNumber();
 				will(returnValue("123456789"));
-				oneOf(card).getName();
+				one(card).getName();
 				will(returnValue("John Smith"));
 			}}
 		);
@@ -86,7 +80,7 @@ public class TestCardManager {
 		try {
 			mockingContext.checking(new Expectations() {
 				{
-					oneOf(cardSlot).readCardData();
+					one(cardSlot).readCardData();
 					will(returnValue(card));
 				}}
 			);
@@ -104,16 +98,15 @@ public class TestCardManager {
 	{
 
 		Mockery mockingContext = new Mockery(){{
-			 setImposteriser(ClassImposteriser.INSTANCE);
-		}};;
+			setImposteriser(ClassImposteriser.INSTANCE);}};
 		final Card card = mockingContext.mock(Card.class);
 		mockingContext.checking(new Expectations() {
 			{
-				oneOf(card).getType();
+				one(card).getType();
 				will(returnValue(0));
-				oneOf(card).getNumber();
+				one(card).getNumber();
 				will(returnValue("123456789"));
-				oneOf(card).getName();
+				one(card).getName();
 				will(returnValue("John Smith"));
 			}}
 		);
@@ -121,7 +114,7 @@ public class TestCardManager {
 		try {
 			mockingContext.checking(new Expectations() {
 				{
-					oneOf(cardSlot).readCardData();
+					one(cardSlot).readCardData();
 					will(returnValue(card));
 				}}
 			);
@@ -141,24 +134,23 @@ public class TestCardManager {
 	{
 
 		Mockery mockingContext = new Mockery(){{
-			 setImposteriser(ClassImposteriser.INSTANCE);
-		}};;
+			setImposteriser(ClassImposteriser.INSTANCE);}};
 		final Card card = mockingContext.mock(Card.class);
 		mockingContext.checking(new Expectations() {
 			{
-				oneOf(card).getType();
+				one(card).getType();
 				will(returnValue(0));
-				oneOf(card).getNumber();
+				one(card).getNumber();
 				will(returnValue("123456789"));
-				oneOf(card).getName();
+				one(card).getName();
 				will(returnValue("John Smith"));
-				oneOf(card).checkPin("1234");
+				one(card).checkPin("1234");
 				will(returnValue(true));
-				oneOf(card).checkPin("4321");
+				one(card).checkPin("4321");
 				will(returnValue(false));
-				oneOf(card).requestFunds(10, "1234");
+				one(card).requestFunds(10, "1234");
 				will(returnValue(true));
-				oneOf(card).requestFunds(10,"4321");
+				one(card).requestFunds(10, "4321");
 				will(returnValue(false));
 			}}
 		);
@@ -166,7 +158,7 @@ public class TestCardManager {
 		try {
 			mockingContext.checking(new Expectations() {
 				{
-					oneOf(cardSlot).readCardData();
+					allowing(cardSlot).readCardData();
 					will(returnValue(card));
 				}}
 			);
@@ -175,8 +167,9 @@ public class TestCardManager {
 			e.printStackTrace();
 		}
 		cardManager.cardInserted(cardSlot);
-		assertEquals(cardManager.charge(10, "1234"), true);
-		assertEquals(cardManager.charge(10, "4321"), false);
+		assertTrue(cardManager.charge(10, "1234"));
+		cardManager.cardInserted(cardSlot);
+		assertFalse(cardManager.charge(10, "4321"));
 	}
 	
 	@Test
@@ -184,15 +177,14 @@ public class TestCardManager {
 	{
 
 		Mockery mockingContext = new Mockery(){{
-			 setImposteriser(ClassImposteriser.INSTANCE);
-		}};;
+			setImposteriser(ClassImposteriser.INSTANCE);}};
 		final Card card = mockingContext.mock(Card.class);
 		mockingContext.checking(new Expectations() {
 			{
 				
-				oneOf(card).checkPin("1234");
+				one(card).checkPin("1234");
 				will(returnValue(true));
-				oneOf(card).checkPin("4321");
+				one(card).checkPin("4321");
 				will(returnValue(false));
 			}}
 		);
@@ -200,7 +192,7 @@ public class TestCardManager {
 		try {
 			mockingContext.checking(new Expectations() {
 				{
-					oneOf(cardSlot).readCardData();
+					allowing(cardSlot).readCardData();
 					will(returnValue(card));
 				}}
 			);
@@ -209,8 +201,9 @@ public class TestCardManager {
 			e.printStackTrace();
 		}
 		cardManager.cardInserted(cardSlot);
-		assertEquals(cardManager.verify("1234"), true);
-		assertEquals(cardManager.verify("4321"), false);
+		assertTrue(cardManager.verify("1234"));
+		cardManager.cardInserted(cardSlot);
+		assertFalse(cardManager.verify("4321"));
 	}
 	
 	private CardManager cardManager;
