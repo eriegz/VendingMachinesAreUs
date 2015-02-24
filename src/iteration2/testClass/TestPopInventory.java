@@ -5,9 +5,6 @@ package iteration2.testClass;
 
 import static org.junit.Assert.*;
 import iteration2.Iteration2PopInventory;
-import iteration2.Iteration2PopInventory.PopInfo;
-import iteration2.PopInventory;
-
 import org.hamcrest.Description;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -16,9 +13,7 @@ import org.jmock.api.Invocation;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import GUI.VendingMachineGUI;
