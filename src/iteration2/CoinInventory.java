@@ -3,6 +3,7 @@ package iteration2;
 import com.vendingmachinesareus.*;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * The Interface CoinInventory. A class which implments coinInventory will be
  * able to have all information needed to know the location and value of coins

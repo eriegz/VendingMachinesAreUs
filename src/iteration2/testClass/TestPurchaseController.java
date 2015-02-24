@@ -32,8 +32,14 @@ import com.vendingmachinesareus.DisabledException;
 import com.vendingmachinesareus.EmptyException;
 import com.vendingmachinesareus.SelectionButton;
 
+/**
+ * The Class TestPurchaseController.
+ */
 public class TestPurchaseController {
 
+	/**
+	 * Sets up.
+	 */
 	@Before
 	public void SetUp() {
 		
@@ -105,6 +111,9 @@ public class TestPurchaseController {
 		}
 	}
 
+	/**
+	 * Tears down.
+	 */
 	@After
 	public void tearDown() {
 		mockingContext = null;
@@ -112,6 +121,9 @@ public class TestPurchaseController {
 		button = null;
 	}
 
+	/**
+	 * Test pressed0.
+	 */
 	@Test
 	public void testPressed0() {
 		
@@ -129,6 +141,9 @@ public class TestPurchaseController {
 		assertEquals("Notice: No Pop of that type", outContent.toString());
 	}
 	
+	/**
+	 * Test pressed1.
+	 */
 	@Test
 	public void testPressed1() {
 		final PopInventory pop = mockingContext.mock(PopInventory.class);
@@ -159,6 +174,9 @@ public class TestPurchaseController {
 		assertEquals("Notice: Price of Pop is $0.10", outContent.toString());
 	}
 	
+	/**
+	 * Test pressed2.
+	 */
 	@Test
 	public void testPressed2() {
 		final PopInventory pop = mockingContext.mock(PopInventory.class);
@@ -216,6 +234,9 @@ public class TestPurchaseController {
 		assertEquals(true, hasDispensedPop);
 	}
 	
+	/**
+	 * Test pressed3.
+	 */
 	@Test
 	public void testPressed3() {
 		final PopInventory pop = mockingContext.mock(PopInventory.class);
@@ -305,6 +326,9 @@ public class TestPurchaseController {
 		assertEquals(true, hasDispensedPop);
 	}
 	
+	/**
+	 * Test pressed4.
+	 */
 	@Test
 	public void testPressed4() {
 		final PopInventory pop = mockingContext.mock(PopInventory.class);
@@ -394,6 +418,9 @@ public class TestPurchaseController {
 		assertEquals(true, hasDispensedPop);
 	}
 	
+	/**
+	 * Test pressed5.
+	 */
 	@Test
 	public void testPressed5() {
 		final PopInventory pop = mockingContext.mock(PopInventory.class);
@@ -483,6 +510,9 @@ public class TestPurchaseController {
 		assertEquals(true, hasDispensedPop);
 	}
 	
+	/**
+	 * Test pressed6.
+	 */
 	@Test
 	public void testPressed6() {
 		final PopInventory pop = mockingContext.mock(PopInventory.class);
@@ -522,6 +552,9 @@ public class TestPurchaseController {
 		assertEquals(false, hasDispensedPop);
 	}
 	
+	/**
+	 * Test pressed7.
+	 */
 	@Test
 	public void testPressed7() {
 		final PopInventory pop = mockingContext.mock(PopInventory.class);
@@ -558,6 +591,9 @@ public class TestPurchaseController {
 		assertEquals("Notice: Cannot Charge Card", outContent.toString());
 	}
 	
+	/**
+	 * Test pressed8.
+	 */
 	@Test
 	public void testPressed8() {
 		final PopInventory pop = mockingContext.mock(PopInventory.class);
@@ -591,6 +627,9 @@ public class TestPurchaseController {
 		assertEquals("Notice: PIN Not Valid", outContent.toString());
 	}
 	
+	/**
+	 * Test pressed9.
+	 */
 	@Test
 	public void testPressed9() {
 		final PopInventory pop = mockingContext.mock(PopInventory.class);
@@ -665,6 +704,13 @@ public class TestPurchaseController {
 		assertEquals("Notice: Cannot Make Change", System.out.toString());
 	}
 
+	/**
+	 * Make coin rack.
+	 *
+	 * @param arrayIndex the array index
+	 * @param coinRackName the coin rack name
+	 * @return the coin rack
+	 */
 	private CoinRack makeCoinRack(final int arrayIndex, String coinRackName) {
 		final CoinRack ret = mockingContext.mock(CoinRack.class, coinRackName);
 		try {
@@ -691,17 +737,41 @@ public class TestPurchaseController {
 		}
 		return ret;
 	}
+	
+	/** The out content. */
 	private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+	
+	/** The purchase controller. */
 	private Iteration2PurchaseController purchaseController;
+	
+	/** The mocking context. */
 	private Mockery mockingContext;
+	
+	/** The default pop. */
 	private PopInventory defaultPop;
+	
+	/** The default coin. */
 	private CoinInventory defaultCoin;
+	
+	/** The default coin location. */
 	private CoinLocationManager defaultCoinLocation;
+	
+	/** The default card. */
 	private CardManager defaultCard;
+	
+	/** The coin values. */
 	private int[] coinValues;
+	
+	/** The number of coins released. */
 	private int[] numberOfCoinsReleased;
+	
+	/** The has dispensed pop. */
 	private boolean hasDispensedPop;
+	
+	/** The racks. */
 	private CoinRack[] racks;
+	
+	/** The button. */
 	private SelectionButton button;
 	private CoinReceptacle coinReceptacle;
 }

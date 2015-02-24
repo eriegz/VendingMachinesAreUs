@@ -6,6 +6,7 @@ import com.vendingmachinesareus.DisabledException;
 import com.vendingmachinesareus.PopCan;
 import com.vendingmachinesareus.StandardPopVendingMachine;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class SoftwareSimulator. This is the main software class which acts upon
  * the hardware class. It instantiates the necessary objects and registers

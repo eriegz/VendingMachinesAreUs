@@ -5,6 +5,7 @@ import com.vendingmachinesareus.AbstractHardwareListener;
 import com.vendingmachinesareus.CardSlot;
 import com.vendingmachinesareus.CardSlotListener;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Interface CardManager.
  * Classes which implement Card Manager will have the ability to tell the current state of the card slot

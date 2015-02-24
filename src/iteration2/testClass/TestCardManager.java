@@ -17,8 +17,14 @@ import com.vendingmachinesareus.Card;
 import com.vendingmachinesareus.CardSlot;
 import com.vendingmachinesareus.EmptyException;
 
+/**
+ * The Class TestCardManager.
+ */
 public class TestCardManager {
 
+	/**
+	 * Sets the up.
+	 */
 	@Before
 	public void SetUp(){
 		cardManager = new Iteration2CardManager();
@@ -26,6 +32,9 @@ public class TestCardManager {
 		new VendingMachineGUI();
 	}
 	
+	/**
+	 * Tear down.
+	 */
 	@After
 	public void tearDown(){
 		
@@ -33,6 +42,9 @@ public class TestCardManager {
 	
 	
 	
+	/**
+	 * Testcard inserted.
+	 */
 	@Test
 	public void testcardInserted()
 	{
@@ -65,6 +77,9 @@ public class TestCardManager {
 			assertTrue(cardManager.hasCard());
 	}
 	
+	/**
+	 * Test card ejected.
+	 */
 	@Test
 	public void testCardEjected()
 	{
@@ -98,6 +113,9 @@ public class TestCardManager {
 			assertFalse(cardManager.hasCard());
 	}
 	
+	/**
+	 * Test has card.
+	 */
 	@Test
 	public void testHasCard()
 	{
@@ -134,6 +152,9 @@ public class TestCardManager {
 			assertFalse(cardManager.hasCard());
 	}
 	
+	/**
+	 * Test charge.
+	 */
 	@Test
 	public void testCharge()
 	{
@@ -177,6 +198,9 @@ public class TestCardManager {
 		assertFalse(cardManager.charge(10, "4321"));
 	}
 	
+	/**
+	 * Test verify.
+	 */
 	@Test
 	public void testVerify()
 	{
@@ -211,5 +235,6 @@ public class TestCardManager {
 		assertFalse(cardManager.verify("4321"));
 	}
 	
+	/** The card manager. */
 	private CardManager cardManager;
 }

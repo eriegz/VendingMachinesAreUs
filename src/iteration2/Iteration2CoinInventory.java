@@ -13,6 +13,7 @@ import com.vendingmachinesareus.Coin;
 import com.vendingmachinesareus.CoinRack;
 import com.vendingmachinesareus.CoinReceptacle;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class Iteration2CoinInventory.
  * Implements CoinInventory and manages coins for iteration2 see @CoinInventory
@@ -20,9 +21,11 @@ import com.vendingmachinesareus.CoinReceptacle;
 public class Iteration2CoinInventory implements CoinInventory{
 	/** The receptacle coin value in cents. */
 	private int receptacleCoinValue;
-	/** The amount of coins in each coin rack stored in number of coins */
+	
+	/**  The amount of coins in each coin rack stored in number of coins. */
 	private int [] coinRackAmountArray;
-	/** This stores the value of the coinRack and the index for the coinRackValue array associated with it */
+	
+	/**  This stores the value of the coinRack and the index for the coinRackValue array associated with it. */
 	private Map <Integer, Integer> valueToRackMap;
 	
 	/** The coin denominations allowed in the machine. */

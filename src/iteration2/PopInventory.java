@@ -3,6 +3,7 @@ package iteration2;
 import iteration2.Iteration2PopInventory.PopInfo;
 import com.vendingmachinesareus.*;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Interface PopInventory. Classes which implements PopInventory will be
  * able to manage the amount of pop in the machine, which rack it is stored in

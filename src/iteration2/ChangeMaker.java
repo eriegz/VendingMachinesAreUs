@@ -9,6 +9,7 @@ import com.vendingmachinesareus.CoinRack;
 import com.vendingmachinesareus.DisabledException;
 import com.vendingmachinesareus.EmptyException;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class ChangeMaker.
  * Contains useful static procedural methods for making change and changing an integer number representing cents to a properly formatted string
@@ -16,7 +17,7 @@ import com.vendingmachinesareus.EmptyException;
 public class ChangeMaker {
 	
 	/**
-	 * Makes change given paramets
+	 * Makes change given paramets.
 	 *
 	 * @param amountOfChange the amount of change
 	 * @param coinRackMap a mapping of the cent value to CoinRack which holds the coins of that denomination

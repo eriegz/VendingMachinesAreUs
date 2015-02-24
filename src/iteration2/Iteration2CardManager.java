@@ -8,6 +8,7 @@ import com.vendingmachinesareus.Card;
 import com.vendingmachinesareus.CardSlot;
 import com.vendingmachinesareus.EmptyException;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class Iteration2CardManager.
  * Implements @CardManager
