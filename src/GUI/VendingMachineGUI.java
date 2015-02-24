@@ -22,8 +22,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 
-//Test change for commit
-
 public class VendingMachineGUI{//implements IndicatorLightSimulatorListener {
 
 	private JFrame myFrame;
