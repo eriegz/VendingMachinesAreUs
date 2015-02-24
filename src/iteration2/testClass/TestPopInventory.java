@@ -157,6 +157,40 @@ public class TestPopInventory {
 		assertTrue(inventory.dispense(sbArray[0]));
 		assertEquals(1,  numberOfPopsReleased[0]);
 	}
+	
+	@Test
+	public void popAddedTest(){
+		SelectionButton[] sbArray = new SelectionButton[6];
+		for(int i = 0;  i < 6; i++){
+			sbArray[i] = mockingContext.mock(SelectionButton.class, nameArray[i]);
+		}
+		Iteration2PopInventory inventory = new Iteration2PopInventory(getVendingMachine(sbArray));
+		inventory.getPopInfo(sbArray[0]).popAdded(getPopCanRack(0, "Rack1"), null);
+		assertEquals(inventory.getStock(sbArray[0]), 1);
+	}
+	@Test
+	public void popEmptyTest(){
+		SelectionButton[] sbArray = new SelectionButton[6];
+		for(int i = 0;  i < 6; i++){
+			sbArray[i] = mockingContext.mock(SelectionButton.class, nameArray[i]);
+		}
+		Iteration2PopInventory inventory = new Iteration2PopInventory(getVendingMachine(sbArray));
+		inventory.setStock(sbArray[0], 10);
+		inventory.getPopInfo(sbArray[0]).popEmpty(getPopCanRack(0, "Rack1"));
+		assertEquals(inventory.getStock(sbArray[0]), 0);
+	}
+	
+	@Test
+	public void popRemovedTest(){
+		SelectionButton[] sbArray = new SelectionButton[6];
+		for(int i = 0;  i < 6; i++){
+			sbArray[i] = mockingContext.mock(SelectionButton.class, nameArray[i]);
+		}
+		Iteration2PopInventory inventory = new Iteration2PopInventory(getVendingMachine(sbArray));
+		inventory.setStock(sbArray[0], 10);
+		inventory.getPopInfo(sbArray[0]).popRemoved(getPopCanRack(0, "Rack1"), null);
+		assertEquals(inventory.getStock(sbArray[0]), 9);
+	}
 
 	/**
 	 * Gets the vending machine.
