@@ -5,6 +5,7 @@ import GUI.VendingMachineGUI;
 import com.vendingmachinesareus.AbstractHardware;
 import com.vendingmachinesareus.AbstractHardwareListener;
 import com.vendingmachinesareus.CapacityExceededException;
+import com.vendingmachinesareus.Coin;
 import com.vendingmachinesareus.DisabledException;
 import com.vendingmachinesareus.SelectionButton;
 
@@ -44,6 +45,14 @@ public class Iteration2PurchaseController implements PurchaseController{
 					.makeChange(coinInventory.getReceptacleAmount() - cost,
 							coinLocationManager.getCoinRackMap(), coinInventory)) {
 				popInventory.dispense(arg0);
+				try {
+					coinLocationManager.getCoinReceptacle().storeCoins();
+				} catch (Exception e ) {
+					/*
+					 * This is a workaround for a bug in v0.3.jar where coins removed is calling functions called coinsAdded
+					 */
+					coinInventory.coinsRemoved(coinLocationManager.getCoinReceptacle());
+				}
 			} else {
 				VendingMachineGUI.out.print("Notice: Cannot Make Change");
 			}
@@ -58,6 +67,11 @@ public class Iteration2PurchaseController implements PurchaseController{
 							coinLocationManager.getCoinReceptacle().storeCoins();
 						} catch (CapacityExceededException | DisabledException e) {
 							//Should disable machine
+						}catch (Exception e){
+							/*
+							 * 
+							 */
+							coinInventory.coinsRemoved(coinLocationManager.getCoinReceptacle());
 						}
 						popInventory.dispense(arg0);
 					} else {

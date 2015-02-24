@@ -14,6 +14,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import GUI.VendingMachineGUI;
+
 import com.vendingmachinesareus.Coin;
 import com.vendingmachinesareus.CoinRack;
 import com.vendingmachinesareus.CoinReceptacle;
@@ -27,6 +29,7 @@ public class TestCoinInventory {
 		coinRackValue = 0;
 		receptacleCoinValue = 0;
 		coinInventory = new Iteration2CoinInventory(coinValues);
+		new VendingMachineGUI();
 	}
 	
 	@After
@@ -45,14 +48,15 @@ public class TestCoinInventory {
 		final Coin coin = mockingContext.mock(Coin.class);
 		mockingContext.checking(new Expectations() {
 			{
-				one(coin).getValue();
+				oneOf(coin).getValue();
 				will(returnValue(5));
 			}}
 		);
-		final Map <Integer, Integer> valueToRackMap = mockingContext.mock(Map.class);
+		@SuppressWarnings("unchecked")
+		final Map <Integer, Integer> valueToRackMap = (Map<Integer,Integer>)mockingContext.mock(Map.class);
 		mockingContext.checking(new Expectations() {
 			{
-				one(valueToRackMap).get(5);
+				oneOf(valueToRackMap).get(5);
 				will(returnValue(0));
 			}}
 		);
@@ -76,14 +80,15 @@ public class TestCoinInventory {
 		final Coin coin = mockingContext.mock(Coin.class);
 		mockingContext.checking(new Expectations() {
 			{
-				one(coin).getValue();
+				oneOf(coin).getValue();
 				will(returnValue(5));
 			}}
 		);
-		final Map <Integer, Integer> valueToRackMap = mockingContext.mock(Map.class);
+		@SuppressWarnings("unchecked")
+		final Map <Integer, Integer> valueToRackMap = (Map<Integer,Integer>)mockingContext.mock(Map.class);
 		mockingContext.checking(new Expectations() {
 			{
-				one(valueToRackMap).get(5);
+				oneOf(valueToRackMap).get(5);
 				will(returnValue(0));
 			}}
 		);
@@ -107,7 +112,7 @@ public class TestCoinInventory {
 		final Coin coin = mockingContext.mock(Coin.class);
 		mockingContext.checking(new Expectations() {
 			{
-				one(coin).getValue();
+				oneOf(coin).getValue();
 				will(returnValue(5));
 			}}
 		);
