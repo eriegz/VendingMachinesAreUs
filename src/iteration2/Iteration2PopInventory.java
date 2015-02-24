@@ -29,6 +29,12 @@ public class Iteration2PopInventory implements PopInventory {
 				stockAmt = 0;
 			}
 			
+			public PopInfo(int priceInit, PopCanRack rackInit, int stockInit){
+				price = priceInit;
+				rackID = rackInit;
+				stockAmt = stockInit;
+			}
+			
 			public int getPrice(){
 				return price;
 			}
@@ -46,6 +52,18 @@ public class Iteration2PopInventory implements PopInventory {
 			}
 			public void setStockAmt(int x){
 				stockAmt = x;
+			}
+			
+			@Override
+			public boolean equals(Object other){
+				if (other == null) return false;
+				if (other == this) return true;
+				if (!(other instanceof PopInfo))return false;
+				PopInfo otherPopInfo = (PopInfo)other;
+				if (this.getPrice() != otherPopInfo.getPrice()) return false;
+				if (this.getRackID() != otherPopInfo.getRackID()) return false;
+				if (this.getStockAmt() != otherPopInfo.getStockAmt()) return false;
+				return true;
 			}
 
 			@Override
@@ -147,7 +165,6 @@ public class Iteration2PopInventory implements PopInventory {
 			try {
 				rack.dispensePop();
 			} catch (DisabledException | EmptyException | CapacityExceededException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return false;
 			}
