@@ -63,6 +63,8 @@ public class Iteration2PurchaseController implements PurchaseController{
 					} else {
 						VendingMachineGUI.out.print("Notice: Cannot Charge Card");
 					}
+				}else {
+					VendingMachineGUI.out.print("Notice: PIN Not Valid");
 				}
 			}
 		else{
