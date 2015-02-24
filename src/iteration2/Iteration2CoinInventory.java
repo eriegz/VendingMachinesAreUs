@@ -88,7 +88,6 @@ public class Iteration2CoinInventory implements CoinInventory{
 	public void coinsRemoved(CoinReceptacle arg0) {
 		receptacleCoinValue = 0;
 		VendingMachineGUI.out.print((ChangeMaker.toMoney(0)));
-		
 	}
 
 	@Override

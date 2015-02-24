@@ -81,7 +81,7 @@ public class Iteration2PopInventory implements PopInventory {
 			@Override
 			public void popAdded(PopCanRack arg0, PopCan arg1) {
 				stockAmt++;
-				VendingMachineGUI.out.print("Notice: Pop Added");
+				//VendingMachineGUI.out.print("Notice: Pop Added");
 			}
 
 			@Override

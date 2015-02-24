@@ -139,7 +139,6 @@ public class TestChangeMaker {
 				{
 					allowing(ret).releaseCoin();
 					will(new Action() {
-
 						@Override
 						public void describeTo(Description description) {
 						}
