@@ -36,7 +36,6 @@ public class TestPurchaseController {
 	@Before
 	public void SetUp() {
 		
-		
 		mockingContext = new Mockery() {
 			{
 				setImposteriser(ClassImposteriser.INSTANCE);
@@ -58,6 +57,11 @@ public class TestPurchaseController {
 		//Set as false to begin
 		hasDispensedPop = false;
 		
+		button = mockingContext.mock(SelectionButton.class, "Selection Button");
+		mockingContext.checking(new Expectations() {
+			{
+			}
+		});
 		defaultPop = mockingContext.mock(PopInventory.class, "DefaultPopInventory");
 		mockingContext.checking(new Expectations() {
 			{
@@ -92,12 +96,7 @@ public class TestPurchaseController {
 
 	@Test
 	public void testPressed0() {
-		final SelectionButton button = mockingContext
-				.mock(SelectionButton.class);
-		mockingContext.checking(new Expectations() {
-			{
-			}
-		});
+		
 		final PopInventory pop = mockingContext.mock(PopInventory.class);
 		mockingContext.checking(new Expectations()
 		{{
@@ -114,12 +113,6 @@ public class TestPurchaseController {
 	
 	@Test
 	public void testPressed1() {
-		final SelectionButton button = mockingContext
-				.mock(SelectionButton.class);
-		mockingContext.checking(new Expectations() {
-			{
-			}
-		});
 		final PopInventory pop = mockingContext.mock(PopInventory.class);
 		mockingContext.checking(new Expectations()
 		{{
@@ -143,18 +136,13 @@ public class TestPurchaseController {
 			oneOf(card).hasCard();
 			will(returnValue(false));
 		}});
+		purchaseController = new Iteration2PurchaseController(pop, coin, defaultCoinLocation, card);
 		purchaseController.pressed(button);
 		assertEquals("Notice: Price of Pop is $0.10", System.out.toString());
 	}
 	
 	@Test
 	public void testPressed2() {
-		final SelectionButton button = mockingContext
-				.mock(SelectionButton.class);
-		mockingContext.checking(new Expectations() {
-			{
-			}
-		});
 		final PopInventory pop = mockingContext.mock(PopInventory.class);
 		mockingContext.checking(new Expectations()
 		{{
@@ -195,18 +183,13 @@ public class TestPurchaseController {
 			oneOf(card).charge(10, "1234");
 			will(returnValue(true));
 		}});
+		purchaseController = new Iteration2PurchaseController(pop, coin, defaultCoinLocation, card);
 		purchaseController.pressed(button);
 		assertEquals(true, hasDispensedPop);
 	}
 	
 	@Test
 	public void testPressed3() {
-		final SelectionButton button = mockingContext
-				.mock(SelectionButton.class);
-		mockingContext.checking(new Expectations() {
-			{
-			}
-		});
 		final PopInventory pop = mockingContext.mock(PopInventory.class);
 		mockingContext.checking(new Expectations()
 		{{
@@ -273,18 +256,13 @@ public class TestPurchaseController {
 			oneOf(changeMaker).makeChange(490, coinRackMap, coin);
 			will(returnValue(true));
 		}});
+		purchaseController = new Iteration2PurchaseController(pop, coin, coinLocation, defaultCard);
 		purchaseController.pressed(button);
 		assertEquals(true, hasDispensedPop);
 	}
 	
 	@Test
 	public void testPressed4() {
-		final SelectionButton button = mockingContext
-				.mock(SelectionButton.class);
-		mockingContext.checking(new Expectations() {
-			{
-			}
-		});
 		final PopInventory pop = mockingContext.mock(PopInventory.class);
 		mockingContext.checking(new Expectations()
 		{{
@@ -351,18 +329,13 @@ public class TestPurchaseController {
 			oneOf(changeMaker).makeChange(450, coinRackMap, coin);
 			will(returnValue(true));
 		}});
+		purchaseController = new Iteration2PurchaseController(pop, coin, coinLocation, defaultCard);
 		purchaseController.pressed(button);
 		assertEquals(true, hasDispensedPop);
 	}
 	
 	@Test
 	public void testPressed5() {
-		final SelectionButton button = mockingContext
-				.mock(SelectionButton.class);
-		mockingContext.checking(new Expectations() {
-			{
-			}
-		});
 		final PopInventory pop = mockingContext.mock(PopInventory.class);
 		mockingContext.checking(new Expectations()
 		{{
@@ -429,18 +402,13 @@ public class TestPurchaseController {
 			oneOf(changeMaker).makeChange(250, coinRackMap, coin);
 			will(returnValue(true));
 		}});
+		purchaseController = new Iteration2PurchaseController(pop, coin, coinLocation, defaultCard);
 		purchaseController.pressed(button);
 		assertEquals(true, hasDispensedPop);
 	}
 	
 	@Test
 	public void testPressed6() {
-		final SelectionButton button = mockingContext
-				.mock(SelectionButton.class);
-		mockingContext.checking(new Expectations() {
-			{
-			}
-		});
 		final PopInventory pop = mockingContext.mock(PopInventory.class);
 		mockingContext.checking(new Expectations()
 		{{
@@ -472,18 +440,13 @@ public class TestPurchaseController {
 			oneOf(card).charge(10, "1234");
 			will(returnValue(true));
 		}});
+		purchaseController = new Iteration2PurchaseController(pop, coin, defaultCoinLocation, card);
 		purchaseController.pressed(button);
 		assertEquals(false, hasDispensedPop);
 	}
 	
 	@Test
 	public void testPressed7() {
-		final SelectionButton button = mockingContext
-				.mock(SelectionButton.class);
-		mockingContext.checking(new Expectations() {
-			{
-			}
-		});
 		final PopInventory pop = mockingContext.mock(PopInventory.class);
 		mockingContext.checking(new Expectations()
 		{{
@@ -513,18 +476,13 @@ public class TestPurchaseController {
 			oneOf(card).charge(10, "1234");
 			will(returnValue(false));
 		}});
+		purchaseController = new Iteration2PurchaseController(pop, coin, defaultCoinLocation, card);
 		purchaseController.pressed(button);
 		assertEquals("Notice: Cannot Charge Card", System.out.toString());
 	}
 	
 	@Test
 	public void testPressed8() {
-		final SelectionButton button = mockingContext
-				.mock(SelectionButton.class);
-		mockingContext.checking(new Expectations() {
-			{
-			}
-		});
 		final PopInventory pop = mockingContext.mock(PopInventory.class);
 		mockingContext.checking(new Expectations()
 		{{
@@ -551,18 +509,13 @@ public class TestPurchaseController {
 			oneOf(card).verify("4321");
 			will(returnValue(false));
 		}});
+		purchaseController = new Iteration2PurchaseController(pop, coin, defaultCoinLocation, card);
 		purchaseController.pressed(button);
 		assertEquals("Notice: PIN Not Valid", System.out.toString());
 	}
 	
 	@Test
 	public void testPressed9() {
-		final SelectionButton button = mockingContext
-				.mock(SelectionButton.class);
-		mockingContext.checking(new Expectations() {
-			{
-			}
-		});
 		final PopInventory pop = mockingContext.mock(PopInventory.class);
 		mockingContext.checking(new Expectations()
 		{{
@@ -615,6 +568,7 @@ public class TestPurchaseController {
 			oneOf(changeMaker).makeChange(490, coinRackMap, coin);
 			will(returnValue(false));
 		}});
+		purchaseController = new Iteration2PurchaseController(pop, coin, coinLocation, defaultCard);
 		purchaseController.pressed(button);
 		assertEquals("Notice: Cannot Make Change", System.out.toString());
 	}
@@ -656,4 +610,5 @@ public class TestPurchaseController {
 	private int[] numberOfCoinsReleased;
 	private boolean hasDispensedPop;
 	private CoinRack[] racks;
+	private SelectionButton button;
 }
