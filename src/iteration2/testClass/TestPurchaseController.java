@@ -27,6 +27,7 @@ import GUI.VendingMachineGUI;
 
 import com.vendingmachinesareus.CapacityExceededException;
 import com.vendingmachinesareus.CoinRack;
+import com.vendingmachinesareus.CoinReceptacle;
 import com.vendingmachinesareus.DisabledException;
 import com.vendingmachinesareus.EmptyException;
 import com.vendingmachinesareus.SelectionButton;
@@ -78,7 +79,8 @@ public class TestPurchaseController {
 				.mock(CoinLocationManager.class, "DefaultCoin");
 		mockingContext.checking(new Expectations() {
 			{
-				
+				allowing(defaultCoinLocation).getCoinReceptacle();
+				will(returnValue(coinReceptacle));
 			}
 		});
 		defaultCard = mockingContext.mock(CardManager.class, "DefaultCardManager");
@@ -87,6 +89,20 @@ public class TestPurchaseController {
 			
 			}
 		});
+		coinReceptacle = mockingContext.mock(CoinReceptacle .class, "CoinReceptacle");
+		try {
+			mockingContext.checking(new Expectations() {
+				{
+					allowing(coinReceptacle).storeCoins();
+				}
+			});
+		} catch (CapacityExceededException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (DisabledException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@After
@@ -140,7 +156,7 @@ public class TestPurchaseController {
 		}});
 		purchaseController = new Iteration2PurchaseController(pop, coin, defaultCoinLocation, card);
 		purchaseController.pressed(button);
-		assertEquals("Notice: Price of Pop is $0.10", System.out.toString());
+		assertEquals("Notice: Price of Pop is $0.10", outContent.toString());
 	}
 	
 	@Test
@@ -172,8 +188,17 @@ public class TestPurchaseController {
 		mockingContext.checking(new Expectations() {
 		{
 			// 2
-			oneOf(coin).getReceptacleAmount();
+			allowing(coin).getReceptacleAmount();
 			will(returnValue(0));
+			allowing(coin).coinsRemoved(null);
+		}});
+		final CoinLocationManager coinLocation = mockingContext
+				.mock(CoinLocationManager.class);
+		mockingContext.checking(new Expectations() {
+		{
+			// 2
+			allowing(coinLocation).getCoinReceptacle();
+			will(returnValue(coinReceptacle));
 		}});
 		final CardManager card = mockingContext.mock(CardManager.class);
 		mockingContext.checking(new Expectations() {
@@ -182,7 +207,8 @@ public class TestPurchaseController {
 			oneOf(card).hasCard();
 			will(returnValue(true));
 			oneOf(card).verify(null);
-			oneOf(card).charge(10, "1234");
+			will(returnValue(true));
+			oneOf(card).charge(10, null);
 			will(returnValue(true));
 		}});
 		purchaseController = new Iteration2PurchaseController(pop, coin, defaultCoinLocation, card);
@@ -218,8 +244,19 @@ public class TestPurchaseController {
 		final CoinInventory coin = mockingContext.mock(CoinInventory.class);
 		mockingContext.checking(new Expectations() {
 		{
-			// 3
-			oneOf(coin).getCoinValues();
+			allowing(coin).getNumberOfCoinsInRack(200);
+			will(returnValue(10));
+			allowing(coin).getNumberOfCoinsInRack(100);
+			will(returnValue(10));
+			allowing(coin).getNumberOfCoinsInRack(50);
+			will(returnValue(10));
+			allowing(coin).getNumberOfCoinsInRack(25);
+			will(returnValue(10));
+			allowing(coin).getNumberOfCoinsInRack(10);
+			will(returnValue(10));
+			allowing(coin).getNumberOfCoinsInRack(5);
+			will(returnValue(10));
+			allowing(coin).getCoinValues();
 			will(returnValue(coinValues));
 			// 3
 			oneOf(coin).getReceptacleAmount();
@@ -251,6 +288,8 @@ public class TestPurchaseController {
 		mockingContext.checking(new Expectations() {
 		{
 			// 3
+			allowing(coinLocation).getCoinReceptacle();
+			will(returnValue(coinReceptacle));
 			oneOf(coinLocation).getCoinRackMap();
 			will(returnValue(coinRackMap));
 		}});
@@ -294,7 +333,19 @@ public class TestPurchaseController {
 		final CoinInventory coin = mockingContext.mock(CoinInventory.class);
 		mockingContext.checking(new Expectations() {
 		{
-			oneOf(coin).getCoinValues();
+			allowing(coin).getNumberOfCoinsInRack(200);
+			will(returnValue(10));
+			allowing(coin).getNumberOfCoinsInRack(100);
+			will(returnValue(10));
+			allowing(coin).getNumberOfCoinsInRack(50);
+			will(returnValue(10));
+			allowing(coin).getNumberOfCoinsInRack(25);
+			will(returnValue(10));
+			allowing(coin).getNumberOfCoinsInRack(10);
+			will(returnValue(10));
+			allowing(coin).getNumberOfCoinsInRack(5);
+			will(returnValue(10));
+			allowing(coin).getCoinValues();
 			will(returnValue(coinValues));
 			// 4
 			oneOf(coin).getReceptacleAmount();
@@ -326,6 +377,8 @@ public class TestPurchaseController {
 		mockingContext.checking(new Expectations() {
 		{
 			// 4
+			allowing(coinLocation).getCoinReceptacle();
+			will(returnValue(coinReceptacle));
 			oneOf(coinLocation).getCoinRackMap();
 			will(returnValue(coinRackMap));
 		}});
@@ -369,7 +422,19 @@ public class TestPurchaseController {
 		final CoinInventory coin = mockingContext.mock(CoinInventory.class);
 		mockingContext.checking(new Expectations() {
 		{
-			oneOf(coin).getCoinValues();
+			allowing(coin).getNumberOfCoinsInRack(200);
+			will(returnValue(10));
+			allowing(coin).getNumberOfCoinsInRack(100);
+			will(returnValue(10));
+			allowing(coin).getNumberOfCoinsInRack(50);
+			will(returnValue(10));
+			allowing(coin).getNumberOfCoinsInRack(25);
+			will(returnValue(10));
+			allowing(coin).getNumberOfCoinsInRack(10);
+			will(returnValue(10));
+			allowing(coin).getNumberOfCoinsInRack(5);
+			will(returnValue(10));
+			allowing(coin).getCoinValues();
 			will(returnValue(coinValues));
 			// 5
 			oneOf(coin).getReceptacleAmount();
@@ -401,6 +466,8 @@ public class TestPurchaseController {
 		mockingContext.checking(new Expectations() {
 		{
 			// 5
+			allowing(coinLocation).getCoinReceptacle();
+			will(returnValue(coinReceptacle));
 			oneOf(coinLocation).getCoinRackMap();
 			will(returnValue(coinRackMap));
 		}});
@@ -435,6 +502,7 @@ public class TestPurchaseController {
 			// 6
 			allowing(coin).getReceptacleAmount();
 			will(returnValue(0));
+			allowing(coin).coinsRemoved(null);
 		}});
 		final CardManager card = mockingContext.mock(CardManager.class);
 		mockingContext.checking(new Expectations() {
@@ -487,7 +555,7 @@ public class TestPurchaseController {
 		}});
 		purchaseController = new Iteration2PurchaseController(pop, coin, defaultCoinLocation, card);
 		purchaseController.pressed(button);
-		assertEquals("Notice: Cannot Charge Card", System.out.toString());
+		assertEquals("Notice: Cannot Charge Card", outContent.toString());
 	}
 	
 	@Test
@@ -520,7 +588,7 @@ public class TestPurchaseController {
 		}});
 		purchaseController = new Iteration2PurchaseController(pop, coin, defaultCoinLocation, card);
 		purchaseController.pressed(button);
-		assertEquals("Notice: PIN Not Valid", System.out.toString());
+		assertEquals("Notice: PIN Not Valid", outContent.toString());
 	}
 	
 	@Test
@@ -537,19 +605,19 @@ public class TestPurchaseController {
 		final CoinInventory coin = mockingContext.mock(CoinInventory.class);
 		mockingContext.checking(new Expectations() {
 		{
-			oneOf(coin).getNumberOfCoinsInRack(200);
+			allowing(coin).getNumberOfCoinsInRack(200);
 			will(returnValue(10));
-			oneOf(coin).getNumberOfCoinsInRack(100);
+			allowing(coin).getNumberOfCoinsInRack(100);
 			will(returnValue(10));
-			oneOf(coin).getNumberOfCoinsInRack(50);
+			allowing(coin).getNumberOfCoinsInRack(50);
 			will(returnValue(10));
-			oneOf(coin).getNumberOfCoinsInRack(25);
+			allowing(coin).getNumberOfCoinsInRack(25);
 			will(returnValue(10));
-			oneOf(coin).getNumberOfCoinsInRack(10);
+			allowing(coin).getNumberOfCoinsInRack(10);
 			will(returnValue(10));
-			oneOf(coin).getNumberOfCoinsInRack(5);
+			allowing(coin).getNumberOfCoinsInRack(5);
 			will(returnValue(10));
-			oneOf(coin).getCoinValues();
+			allowing(coin).getCoinValues();
 			will(returnValue(coinValues));
 			// 9
 			oneOf(coin).getReceptacleAmount();
@@ -587,8 +655,9 @@ public class TestPurchaseController {
 		final ChangeMaker changeMaker = mockingContext.mock(ChangeMaker.class);
 		mockingContext.checking(new Expectations() {
 		{
+			oneOf(changeMaker);
 			// 9
-			oneOf(changeMaker).makeChange(490, coinRackMap, coin);
+			ChangeMaker.makeChange(490, coinRackMap, coin);
 			will(returnValue(false));
 		}});
 		purchaseController = new Iteration2PurchaseController(pop, coin, coinLocation, defaultCard);
@@ -611,7 +680,7 @@ public class TestPurchaseController {
 						@Override
 						public Object invoke(Invocation invocation)
 								throws Throwable {
-							numberOfCoinsReleased[arrayIndex]++;
+							//numberOfCoinsReleased[arrayIndex]++;
 							return null;
 						}
 					});
@@ -634,4 +703,5 @@ public class TestPurchaseController {
 	private boolean hasDispensedPop;
 	private CoinRack[] racks;
 	private SelectionButton button;
+	private CoinReceptacle coinReceptacle;
 }
