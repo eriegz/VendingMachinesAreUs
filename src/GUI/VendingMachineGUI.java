@@ -316,11 +316,6 @@ private JFrame myFrame;
 		
 		//Don't know how to implement this yet... Probably need some type of store string funciton which another class could call to get the pin
 		//========================= Number Pad ==================================
-		/*public static int pinEntered(){
-			int pin = 0;
-			
-			return pin;
-		}*/
 		
 		JLabel lblPINPad = new JLabel("Enter PIN:");
 		myFrame.getContentPane().add(
