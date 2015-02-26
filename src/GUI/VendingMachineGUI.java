@@ -126,7 +126,7 @@ private JFrame myFrame;
 		JLabel lblEnterCoin = new JLabel("             Payment Method:");
 		myFrame.getContentPane().add(
 				lblEnterCoin,
-				getNewConstraints(0, 2, 1, 3, 1.0, 1.0, northeastInt,
+				getNewConstraints(0, 2, 1, 1, 1.0, 1.0, northeastInt,
 						fillNoneInt, tenInsets, 0, 0));
 
 		// $0.05 button
