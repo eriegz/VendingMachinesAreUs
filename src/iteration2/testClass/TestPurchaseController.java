@@ -705,7 +705,7 @@ public class TestPurchaseController {
 		}});
 		purchaseController = new Iteration2PurchaseController(pop, coin, coinLocation, defaultCard);
 		purchaseController.pressed(button);
-		assertEquals("Notice: Cannot Make Change", outContent.toString());
+		assertEquals("Notice: Cannot Make Change. Please call (555)555-5555.", outContent.toString());
 		assertEquals(false, hasDispensedPop);
 	}
 

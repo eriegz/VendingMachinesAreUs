@@ -98,7 +98,7 @@ private JFrame myFrame;
 		//Create new frame
 		myFrame = new JFrame();
 		// Set the size of our window, and center it in the screen
-		myFrame.setSize(950, 610);
+		myFrame.setSize(980, 610);
 		myFrame.setLocationRelativeTo(null);
 		myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		// Use the GridBag layout manager
@@ -111,17 +111,19 @@ private JFrame myFrame;
 		int fillNoneInt = GridBagConstraints.NONE;
 
 		//Updateable GUI display
-		textPane = new JTextArea();
+		textPane = new JTextArea(1, 500);
 		textPane2 = new JTextArea();
 		textPane.setVisible(true);
 		textPane.setEditable(false);
-		textPane.setVisible(true);
 		myFrame.getContentPane().add(textPane, getNewConstraints(0,0,2,1,1.0,1.0, centerInt, fillBothInt, zeroInsets, 0, 0));
 		myFrame.getContentPane().add(textPane2, getNewConstraints(2,0,1,1,1.0,1.0, centerInt, fillBothInt, zeroInsets,0,0));
 		
 		// ===================== Coin buttons =============================
 		// Coin entry label text
-		JLabel lblEnterCoin = new JLabel("Payment Method:");
+		// Note: The following string contains a bunch of spaces to make the cell wider,
+		// in order to make 'textPane' wider. Because we're using GridBagLayout, it makes
+		// every cell as small as possible.
+		JLabel lblEnterCoin = new JLabel("             Payment Method:");
 		myFrame.getContentPane().add(
 				lblEnterCoin,
 				getNewConstraints(0, 2, 1, 3, 1.0, 1.0, northeastInt,
@@ -237,7 +239,7 @@ private JFrame myFrame;
 		JLabel lblSelectPop = new JLabel("Select pop:");
 		myFrame.getContentPane().add(
 				lblSelectPop,
-				getNewConstraints(0, 5, 1, 3, 1.0, 1.0, northeastInt,
+				getNewConstraints(0, 5, 1, 1, 1.0, 1.0, northeastInt,
 						fillNoneInt, tenInsets, 0, 0));
 
 		// First pop button
@@ -317,7 +319,7 @@ private JFrame myFrame;
 		JLabel lblPINPad = new JLabel("Enter PIN:");
 		myFrame.getContentPane().add(
 				lblPINPad,
-				getNewConstraints(3, 5, 1, 3, 1.0, 1.0, northeastInt,
+				getNewConstraints(3, 5, 1, 1, 1.0, 1.0, northeastInt,
 						fillNoneInt, tenInsets, 0, 0));
 		
 		JButton pin1 = new JButton(new ImageIcon("Resources/PinPad/1.jpg"));
@@ -507,9 +509,9 @@ private JFrame myFrame;
 	 * @return the new constraints
 	 */
 	public GridBagConstraints getNewConstraints(int cellX, int cellY,
-			int cellHeight, int cellWidth, double weightX, double weightY,
+			int cellWidth, int cellHeight, double weightX, double weightY,
 			int anchor, int fill, Insets ins, int padX, int padY) {
-		return new GridBagConstraints(cellX, cellY, cellHeight, cellWidth,
+		return new GridBagConstraints(cellX, cellY, cellWidth, cellHeight,
 				weightX, weightY, anchor, fill, ins, padX, padY);
 	}
 

@@ -43,7 +43,7 @@ public class SoftwareSimulator {
 		// Initialize and register listeners
 		
 		cardManager = new Iteration2CardManager();
-		machine.getCardSlot().register(cardManager);
+		//machine.getCardSlot().register(cardManager);
 
 		coinInventory = new Iteration2CoinInventory(coinCosts);
 		machine.getCoinReceptacle().register(coinInventory);
