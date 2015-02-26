@@ -91,7 +91,7 @@ public class Iteration2PurchaseController implements PurchaseController {
 							.getCoinReceptacle());
 				}
 			} else {
-				VendingMachineGUI.out.print("Notice: Cannot Make Change");
+				VendingMachineGUI.out.print("Notice: Cannot Make Change. Please call (555)555-5555.");
 			}
 		} else if (cardManager.hasCard()) {
 			VendingMachineGUI.out.print("Notice: Please Enter PIN");
