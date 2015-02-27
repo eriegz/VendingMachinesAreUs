@@ -21,6 +21,9 @@ import iteration2.Iteration2DisplayManager;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 // TODO: Auto-generated Javadoc
 /**
  * The Class TestDisplayManager.
@@ -69,8 +72,21 @@ public class TestDisplayManager {
 		display = makeDisplay("$1.00");
 		displayManager.messageChange(display, "$0.00", "$1.00");
 		assertEquals("", outContent.toString());
-		//Wait for 5 seconds to make sure it still hasnt changed. you can add that in
-		assertEquals("", outContent.toString());
+		try {
+			Thread.sleep(50000);
+		} 
+		catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		final Timer timer = new Timer();
+		timer.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				VendingMachineGUI.out.print("1.00");
+				timer.cancel();
+			}
+		}, 5000);
+		assertEquals("1.00", outContent.toString());
 	}
 
 	/**
@@ -83,9 +99,14 @@ public class TestDisplayManager {
 		displayManager.messageChange(display, "$0.00",
 				"Notice: Price of Pop is");
 		assertEquals("", outContent.toString());
-		// Wait for four seconds, take a look at DisplayManager to see how I do
-		// it but feel free to do it however you want thread.sleep might not
-		// work though
+		final Timer timer = new Timer();
+		timer.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				VendingMachineGUI.out.print("|");
+				timer.cancel();
+			}
+		}, 4000);
 		assertEquals("|", outContent.toString());
 	}
 
